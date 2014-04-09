@@ -1,0 +1,27 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+}
+#starfield {
+    width: 98%;
+    height: 80%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+#gamecontainer {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#a {
+    height:20px;
+    width:50px;
+    border: 1px solid white;
+    margin-left:500px;
+}
