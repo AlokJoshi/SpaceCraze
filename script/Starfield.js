@@ -1,7 +1,3 @@
-/*
- Starfield lets you take a div and turn it into a starfield.
-
- */
 //	Define the starfield class.
 function Starfield() {
     this.fps = 30;
@@ -98,7 +94,6 @@ function Star(x, y, size, velocity) {
     this.size = size;
     this.velocity = velocity;
 }
-
 function randomise() {
     starfield.stop();
     starfield.stars = Math.random()*1000 + 50;

@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2" viewBox="0 0 640 640" version="1.1">
+  <g id="layer1" opacity=".45" transform="translate(0 -412.36)">
+    <g id="g3906" stroke="#f00" stroke-width="1px" fill="none">
+      <g id="g3779">
+        <path id="path2987" d="m40 40h560v560h-560z" transform="translate(0 412.36)"/>
+        <path id="path3757" d="m320 40v560" transform="translate(0 412.36)"/>
+        <path id="path3759" d="m40 320h560" transform="translate(0 412.36)"/>
+        <path id="path3761" d="m180 40v560" transform="translate(0 412.36)"/>
+        <path id="path3763" d="m460 40v560" transform="translate(0 412.36)"/>
+        <path id="path3765" d="m40 180h560" transform="translate(0 412.36)"/>
+        <path id="path3767" d="m40 480h560" transform="translate(0 412.36)"/>
+        <path id="path3769" d="m100 480v120" transform="translate(0 412.36)"/>
+        <path id="path3771" d="m540 480v120" transform="translate(0 412.36)"/>
+        <path id="path3773" d="m80 180v-140" transform="translate(0 412.36)"/>
+        <path id="path3775" d="m560 40v140" transform="translate(0 412.36)"/>
+        <path id="path3777" d="m200 200h240v260h-240z" transform="translate(0 412.36)"/>
+      </g>
+      <path id="path3799" d="m220 220h200v220h-200z" transform="translate(0 412.36)"/>
+      <path id="path3829" d="m180 580h280" transform="translate(0 412.36)"/>
+    </g>
+  </g>
+  <g id="layer2">
+    <g id="g4264">
+      <path id="path4041" d="m180 360 100 80h80l100-80-20 100-120 40-120-40z" stroke="#000" stroke-width="4" fill="#939ba8"/>
+      <path id="path4021" d="m180 380 80 100-80 20z" stroke="#000" stroke-width="4" fill="#354459"/>
+      <path id="path4021-9" d="m460 380-80 100 80 20z" stroke="#000" stroke-width="4" fill="#354459"/>
+      <path id="path4043" d="m260 480 40-60h40l40 60z" stroke="#000" stroke-width="4" fill="#c4ccd3"/>
+      <path id="path4045" d="m160 280 80 40 20-20-80-80z" stroke="#000" stroke-width="4" fill="#c4ccd3"/>
+      <path id="path4045-1" d="m480 280-80 40-20-20 80-80z" stroke="#000" stroke-width="4" fill="#c4ccd3"/>
+      <path id="path4109-6-4" d="m160 80 20 64 40-32v-32l-20-16z" stroke="#000" stroke-width="3.5777" fill="#7d886c"/>
+      <path id="path4133" d="m200 160v-120l-40 40-40 80 40 40z" stroke="#000" stroke-width="4" fill="#40678b"/>
+      <path id="path4137" d="m180 80v60l-40 60z" stroke="#000" stroke-width="4" fill="#00245a"/>
+      <path id="path4109-6-4-1" d="m480 80-20 64-40-32v-32l20-16z" stroke="#000" stroke-width="3.5777" fill="#7d886c"/>
+      <path id="path4133-2" d="m440 160v-120l40 40 40 80-40 40z" stroke="#000" stroke-width="4" fill="#40678b"/>
+      <path id="path4137-2" d="m460 80v60l40 60z" stroke="#000" stroke-width="4" fill="#00245a"/>
+      <path id="path3809" d="m137.84 45-57.84 135-40 140 60 160 80 100 140 20 140-20 80-100 60-160-40-140-57.84-135h-3.6l-38.56 135-20 20 20 120-20 120-40 20-80 20-80-20-40-20-20-120 20-120-20-20-38.562-135h-3.5938z" stroke="#000" stroke-width="4" fill="#40678b"/>
+      <path id="path3942" d="m140 80c-20 100-40 100-40 100l-40 140 60 140 40 60 40 20 20 20h20l-20-80h-20l-20-20-20-60-40-60v-100l20-60z" stroke="#000b21" stroke-width="4" fill="#00245a"/>
+      <path id="path3973" d="m160 160 20 60-20 80v80l-20-40v-100s20-40 20-80z" stroke="#fff" stroke-width="4" fill="#192a44"/>
+      <path id="path3998" d="m260 480 20 40v40l40 20 40-20v-40l20-40-40 20h-40z" stroke="#000b21" stroke-width="3.266" fill="#354459"/>
+      <path id="path3942-2" d="m500 80c20 100 40 100 40 100l40 140-60 140-40 60-40 20-20 20h-20l20-80h20l20-20 20-60 40-60v-100l-20-60z" stroke="#000b21" stroke-width="4" fill="#00245a"/>
+      <path id="path3973-2" d="m480 160-20 60 20 80v80l20-40v-100s-20-40-20-80z" stroke="#fff" stroke-width="4" fill="#192a44"/>
+      <path id="path4069" d="m180 580h80l60 20z"/>
+      <path id="path4071" d="m320 600 60-20h80z"/>
+      <path id="path4096" d="m380 580 20-120" stroke="#000" stroke-width="4" fill="none"/>
+      <path id="path4098" d="m260 580-20-120" stroke="#000" stroke-width="4" fill="none"/>
+      <path id="path4205" d="m280 80 25-40h30l25 40z" stroke="#000" stroke-width="4" fill="#879cad"/>
+      <path id="path4181" d="m280 270-40-100 40-100h80l40 100-40 100z" stroke="#000" stroke-width="4" fill="#40678b"/>
+      <path id="path4201" d="m275 185h90l15-35-45-65h-30l-45 65z" stroke="#000" stroke-width="4" fill="#00245a"/>
+    </g>
+  </g>
+  <g id="layer3">
+    <path id="path3938" stroke-linejoin="round" d="m438.57 331.43a119.29 128.57 0 1 1 -238.57 0 119.29 128.57 0 1 1 238.57 0z" transform="matrix(1 0 0 1.2444 0 -112.44)" stroke="#000" stroke-width="4" fill="#86b6d2"/>
+    <path id="path3940" stroke-linejoin="round" d="m420 330a100.71 110 0 1 1 -201.43 0 100.71 110 0 1 1 201.43 0z" transform="matrix(1 0 0 1.2727 0 -120)" stroke="#000" stroke-width="4" fill="#4096e0"/>
+    <path id="path4065" d="m360 330a40 90 0 1 1 -80 0 40 90 0 1 1 80 0z" fill="#424242" transform="matrix(1 0 0 1.3333 0 -140)" fill-opacity=".54902"/>
+    <path id="path4067" stroke-linejoin="round" d="m380 320a60 60 0 1 1 -120 0 60 60 0 1 1 120 0z" fill-opacity=".4951" transform="matrix(1 0 0 1.6667 0 -233.33)" stroke="#73898b" stroke-width="4" fill="#dbeeff"/>
+    <path id="path3938-9" d="m317.73 144.63c-61.709 0-111.73 67.903-111.73 151.66 0 65.409 30.485 121.14 73.238 142.42-3.2948-23.819-5.0347-48.756-5.0347-74.44 0-86.196 19.717-164.01 51.372-219.26-2.5982-0.24524-5.2007-0.38509-7.8448-0.38509z" fill="#f5fbff" fill-opacity=".15686"/>
+    <path id="path4262" d="m331.33 263.21a35.355 53.538 0 1 1 -70.711 0 35.355 53.538 0 1 1 70.711 0z" fill="#f5fbff" transform="matrix(.47806 .73857 -.62585 .81530 311.38 -194.54)" fill-opacity=".58824"/>
+  </g>
+  <g id="layer4">
+    <path id="path3809-5" d="m300 40-20 40-40 90s30-20 60-30 20-100 20-100zm198.56 5-38.56 135l-20 20 20 120-9.5 57-10.5 123c40-40 60-80 60-80l40-140-40-100 2.16-135zm-362.09 3.188-56.47 131.81-40 140 60 160 80 100-60-220-20-60 20-120zm90.75 405.44l-7.22 126.37h40l-20-120zm168.97 7.31-76.19 19.06v120l60-20z" fill="#fff" fill-opacity=".15686"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Wolf space ship</dc:title>
+        <dc:date>2013-01-02T11:54:02</dc:date>
+        <dc:description>A space ship similar to the Volfied space ships</dc:description>
+        <dc:source>http://openclipart.org/detail/174020/wolf-space-ship-by-bogdanco-174020</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>bogdanco</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>space ship</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
