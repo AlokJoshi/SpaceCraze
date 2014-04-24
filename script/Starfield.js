@@ -1,3 +1,4 @@
+//lånat från http://www.codeproject.com/Articles/642499/Learn-JavaScript-Part-1-Create-a-Starfield
 //	Define the starfield class.
 function Starfield() {
     this.fps = 30;
@@ -33,6 +34,7 @@ Starfield.prototype.initialise = function(div) {
     this.canvas = canvas;
     this.canvas.width = this.width;
     this.canvas.height = this.height;
+
 };
 
 Starfield.prototype.start = function() {

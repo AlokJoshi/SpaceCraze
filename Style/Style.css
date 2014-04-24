@@ -16,19 +16,23 @@ body, html {
     position: absolute;
     left: 0px;
     top: 0px;
+    background:transparent;
 }
-#gamecontainer {
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+Canvas {
+    position:absolute;
+    background:transparent;
+
 }
-#gamecanvas {
-    width: 800px;
-    height: 600px;
+#gameCanvas{
+    z-index:5;
+}
+#enemyCanvas{
+    z-index: 10;
 }
 #info {
     width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
+
         
