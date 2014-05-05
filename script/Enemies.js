@@ -7,7 +7,6 @@ var EnemyProperties = {
     Enemies : [],
     CurrentEnemy : 0,
 
-
     init: function () {
 
         var canvas = document.createElement("canvas");
@@ -22,35 +21,29 @@ var EnemyProperties = {
         EnemyProperties.RegularEnemy = new RegularEnemy();
 
         EnemyStart();
-
     }
 }
 
 function Enemies(){
 }
-function spawnEnemyControl() {
-    var EnemyInterval = setInterval(function(){
+function spawnEnemyControl(a) {
+      var EnemyInterval = setInterval(function(){
         spawnEnemy(1);
-        
+
     }, 2000);
 }
 
 function RegularEnemy() {
     this.speed = 0.4;
     this.x = Math.random()*window.innerWidth;
-    this.y = -40;
+    this.y = 40;
     this.width = 20;
     this.height = 20;
 }
 
-
 function spawnEnemy(amount) {
-    this.CurrentEnemy = 0;
-
     for(var i=0;i<amount;i++) {
-        EnemyProperties.Enemies[EnemyProperties.CurrentEnemy] = new RegularEnemy();
-        EnemyProperties.CurrentEnemy++;
-
+        EnemyProperties.Enemies[EnemyProperties.Enemies.length] = new RegularEnemy();
     }
 }
 RegularEnemy.prototype.render = function() {
@@ -58,22 +51,19 @@ RegularEnemy.prototype.render = function() {
 
     for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
 
-        EnemyProperties.canvas.fillRect(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += this.speed,
-            EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
+            EnemyProperties.canvas.fillRect(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += this.speed,
+                EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
+
+        if(EnemyProperties.Enemies[i].y > window.innerHeight) {
+
+            EnemyProperties.Enemies[i] = new RegularEnemy(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += this.speed,
+                EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
+        }
     }
 }
 
 function EnemyStart() {
     EnemyProperties.rendering = true;
 }
-RegularEnemy.prototype.EnemyMovement = function() {
-
-    if (EnemyProperties.rendering) {
-        for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
-        }
-        EnemyProperties.Enemies[i].y += this.speed;
-    }
-}
-
 
 window.onload = EnemyProperties.init();

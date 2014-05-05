@@ -4,11 +4,10 @@ var weaponProperties = {
     rendering :false,
     Blasts : [],
     currentBlast: 0,
-    shipx : 0,
-    shipy : 0,
+
 
     init:function() {
-
+        //skapar canvas för vape och attribut för detta
         var canvas = document.createElement("canvas");
         canvas.setAttribute('id', 'weaponCanvas');
         var gameContainer = document.getElementById('gameContainer')
@@ -16,67 +15,65 @@ var weaponProperties = {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         gameContainer.appendChild(canvas);
-        weaponProperties.canvas.fillStyle = 'white';
-        weaponProperties.RegularBlast = new RegularBlast();
+
+        //skotten är orangea
+        weaponProperties.canvas.fillStyle = 'orange';
+        //startar spelet
         weaponStart();
-        BlastControl();
     }
 }
 function Weapons() {
 }
-
+//interval för hur ofta skotten ska avfyras
 function BlastControl() {
-    console.log('2');
     var blastInterval = setInterval(function(){
         Blast(1);
 
-    }, 1000);
+    }, 300);
 }
-
+//vanliga skott
 function RegularBlast() {
-    this.speed = 5;
-    this.x = weaponProperties.shipx;
-    this.y = weaponProperties.shipy;
-    console.log(this.x, this.y);
-    this.width = 2;
-    this.height = 2;
-    console.log('3');
+        this.speed = 5;
+        this.x = GameProperties.ship.x+20;
+        this.y = GameProperties.ship.y-5;
+        this.width = 5;
+        this.height = 5;
 }
 
-function Blast(amount) {
-    this.currentBlast = 0;
+function renderBlasts() {
+    weaponProperties.canvas.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
+    for(var i=0;i<weaponProperties.Blasts.length;i++) {
+        //skriver ut skotten
+        weaponProperties.Blasts[i].render();
+
+       /*//tar bort skottet från arrayen om det lämnar skärmen
+        if(weaponProperties.Blasts[i].y > window.innerHeight) {
+            weaponProperties.Blasts.splice(i,1);
+        }*/
+
+
+    }
+}
+//göt att varje skott i Blasts blir ett regularblast
+//räknar upp currentblast så det inte tas bort ett skott för varje nytt som skapas
+function Blast(amount) {
     for(var i=0;i<amount;i++) {
         weaponProperties.Blasts[weaponProperties.currentBlast] = new RegularBlast();
         weaponProperties.currentBlast++;
-        console.log('4');
     }
 }
 
 RegularBlast.prototype.render = function() {
-    weaponProperties.canvas.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    weaponProperties.canvas.fillRect(this.x, this.y -= this.speed, this.width, this.height);
 
-    for (var i = 0; i < weaponProperties.Blasts.length; i++) {
 
-        weaponProperties.canvas.fillRect(weaponProperties.Blasts[i].x, weaponProperties.Blasts[i].y,
-            weaponProperties.Blasts[i].width, weaponProperties.Blasts[i].height);
-        console.log('5');
-    }
+
 }
 
 function weaponStart() {
     weaponProperties.rendering = true;
-    console.log('6');
-}
-RegularBlast.prototype.BlastMovement = function() {
 
-    if (weaponProperties.rendering) {
-        for (var i = 0; i < weaponPropteries.Blasts.length; i++) {
-        }
-        weaponProperties.Blasts[i].y -= this.speed;
-        console.log('7');
-    }
 }
-
 
 window.onload = weaponProperties.init();
