@@ -1,3 +1,7 @@
+/**
+ *
+ * @type {{init: init}}
+ */
 var Score = {
 
     init: function (enemyY,blastY) {
@@ -5,21 +9,28 @@ var Score = {
         var digit = document.getElementById('digit');
         score.appendChild(digit);
 
-        console.log(enemyY);
+        /*console.log(enemyY);
         console.log(blastY);
-        console.log(enemyY+=blastY);
+        console.log(enemyY+blastY);*/
 
-        var ScorePoints =+ (enemyY + blastY);
+        var oldScore = ScorePoints;
+        var ScorePoints = (enemyY + blastY);
+        var totSCore = oldScore + ScorePoints;
 
-        digit.innerHTML = ScorePoints.toFixed(2);
-
+        console.log(totSCore);
+        digit.innerHTML = totSCore.toFixed(2);
     }
 }
 
+function Score() {
+};
+
+/**
+ *
+ * @param enemyYCount
+ * @constructor
+ */
 function ScoreCount(enemyYCount){
 
-
-
 }
-
 window.onload = Score.init();

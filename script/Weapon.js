@@ -1,10 +1,13 @@
+/**
+ *
+ * @type {{canvas: string, RegularBlast: null, rendering: boolean, Blasts: Array, currentBlast: number, init: init}}
+ */
 var weaponProperties = {
     canvas : "",
     RegularBlast : null,
     rendering :false,
     Blasts : [],
     currentBlast: 0,
-
 
     init:function() {
         //skapar canvas för vape och attribut för detta
@@ -39,31 +42,38 @@ function RegularBlast() {
         this.width = 5;
         this.height = 5;
 }
-
+/**
+ * suddar ut skott.
+ */
 function renderBlasts() {
     weaponProperties.canvas.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
     for(var i=0;i<weaponProperties.Blasts.length;i++) {
-        //skriver ut skotten
+        //skriver ut skotten från array
         weaponProperties.Blasts[i].render();
 
        /*//tar bort skottet från arrayen om det lämnar skärmen
         if(weaponProperties.Blasts[i].y > window.innerHeight) {
             weaponProperties.Blasts.splice(i,1);
         }*/
-
-
     }
 }
-//göt att varje skott i Blasts blir ett regularblast
-//räknar upp currentblast så det inte tas bort ett skott för varje nytt som skapas
+/**
+ *
+ * @param amount
+ * @constructor
+ * gör att varje skott i Blasts blir ett regularblast
+ * räknar upp currentblast så det inte tas bort ett skott för varje nytt som skapas
+ */
 function Blast(amount) {
     for(var i=0;i<amount;i++) {
         weaponProperties.Blasts[weaponProperties.currentBlast] = new RegularBlast();
         weaponProperties.currentBlast++;
     }
 }
-
+/**
+ * renderfunktionen som bestämmmer hur skotten ska röra sig och från vart
+ */
 RegularBlast.prototype.render = function() {
     weaponProperties.canvas.fillRect(this.x, this.y -= this.speed, this.width, this.height);
 

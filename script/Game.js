@@ -1,4 +1,15 @@
 //skapar allt som ja vill använd amig av för spelare och fiender
+
+/**
+ *
+ * @type {{canvas: string,
+ * ship: null,
+ * RegularBlast: null,
+ * rendering: boolean,
+ * pressedKeys: Array,
+ * sprite: null,
+ * init: init}}
+ */
 var GameProperties = {
     canvas : "",
     ship : null,
@@ -11,6 +22,7 @@ var GameProperties = {
     //skapar instans av spelaren
     //startar spelet
     //skapar en eventlistener för att styra spelet med knapptryck
+
     init:function(){
 
         var canvas = document.createElement("canvas");
@@ -54,10 +66,16 @@ var GameProperties = {
     }
 }
 
+/**
+ *
+ * @constructor
+ */
 function Game(){
 
 }
-
+/**
+ *
+ */
 function drawSprite() {
 
     GameProperties.sprite = new Image();
@@ -69,7 +87,9 @@ function drawSprite() {
 }
 
 
-// Game object
+/**
+ * Ship är själva spelarobjektet
+ */
 function Ship() {
     this.speed = 5;
     this.x = 600;
@@ -78,13 +98,17 @@ function Ship() {
     this.height = 50;
 }
 
-//rendering av object
+/**
+ * tar bort det som tidigare ritats ut och ritar ut det igen.
+ */
 Ship.prototype.render = function() {
     GameProperties.canvas.clearRect(0,0,window.innerWidth,window.innerHeight);
     GameProperties.canvas.drawImage(GameProperties.sprite, 0,0,50,50, this.x,this.y,this.width, this.height);
     this.moving();
 }
-
+/**
+ * Gameloopen.
+ */
 function gameLoop() {
 
     if (GameProperties.rendering) {
@@ -97,10 +121,15 @@ function gameLoop() {
 
     }
 }
+/**
+ *
+ * @constructor startar spelet
+ */
 function StartGame() {
     GameProperties.rendering = true;
     gameLoop();
     spawnEnemyControl();
+    spawnRareEnemyControl();
     BlastControl();
 
 }
@@ -112,8 +141,11 @@ var aniSmooth = window.requestAnimationFrame      ||
         function( callback ){
             window.setTimeout(callback, 1000 / 60);
 };
-//laddar inte spritedocumentet.
 
+
+/**
+ *funktion för alla knaptryck som användaren kommer använda sig av
+ */
 Ship.prototype.moving = function() {
 
     if (GameProperties.pressedKeys[37]) {
@@ -154,11 +186,24 @@ Ship.prototype.moving = function() {
     }
 }
 
+/**
+ *Läserna av när den nädrykta tangenten inte är det längre och stannar spelaren
+ *
+ * @param e
+ *
+ */
 Ship.prototype.still = function(e) {
     if(GameProperties.pressedKeys[e]) {
         GameProperties.ship.x = GameProperties.ship.x;
     }
 }
+/**
+ * hämtar ut positionen för det olika objekten i canvaserna
+ * Enemie/blast
+ * Enemie/Player
+ *Färdiga
+ * PLayer/blast. Kvar
+ */
 function position() {
 
     for (var i=0; i < EnemyProperties.Enemies.length; i++)
@@ -179,11 +224,17 @@ function position() {
                 EnemyProperties.Enemies.splice(i,1);
             }
         }
-
     }
-
 }
 
+/**
+ * ekvationer för när och hur objekten ska tas bort
+ *
+ * @param item1
+ * @param item2
+ * @returns {boolean}
+ * @constructor
+ */
 function Collision(item1,item2) {
 
     if(item1 === undefined || item2 === undefined)
@@ -195,6 +246,14 @@ function Collision(item1,item2) {
     {
         return true;
     }
+    else {
+        return false;
+    }
+    if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
+        item2.y+40 <= item1.height && item2.y+40 >= (item1.y+40 + item1.height))
+    {
+        return false;
+    }
     if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
         item2.y >= item1.height && item2.y <= (item1.y + item1.height))
     {
@@ -202,9 +261,6 @@ function Collision(item1,item2) {
     }
 }
 
-window.onload = drawSprite(
-
-
-);
+window.onload = drawSprite();
 
 
