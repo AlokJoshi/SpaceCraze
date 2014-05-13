@@ -41,6 +41,7 @@ Canvas {
     position: absolute;
     background-color:black;
 }
+
 #digit {
     width:60px;
     height:17px;
@@ -49,4 +50,11 @@ Canvas {
     background-color:white;
     z-index: 100;
     border-radius:1px;
+}
+#lifeContainer {
+    width: 10px;
+    height: 30px;
+    background-color:white;
+    margin-top:50px;
+    position:absolute;
 }

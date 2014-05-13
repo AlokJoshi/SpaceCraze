@@ -3,34 +3,23 @@
  * @type {{init: init}}
  */
 var Score = {
+    score : 0,
 
     init: function (enemyY,blastY) {
-        var score = document.getElementById('Score');
-        var digit = document.getElementById('digit');
-        score.appendChild(digit);
 
+        var digit = document.getElementById('digit');
         /*console.log(enemyY);
         console.log(blastY);
         console.log(enemyY+blastY);*/
 
-        var oldScore = ScorePoints;
-        var ScorePoints = (enemyY + blastY);
-        var totSCore = oldScore + ScorePoints;
+        var ScorePoints = (blastY / enemyY + plusSpeedCounter);
+        this.score += ScorePoints;
 
-        console.log(totSCore);
-        digit.innerHTML = totSCore.toFixed(2);
+        digit.innerHTML = this.score.toFixed(2);
     }
 }
+//gjord till en global variabel
+Score.prototype.score = 0;
 
-function Score() {
-};
 
-/**
- *
- * @param enemyYCount
- * @constructor
- */
-function ScoreCount(enemyYCount){
-
-}
 window.onload = Score.init();

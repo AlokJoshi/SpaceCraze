@@ -5,6 +5,9 @@ function velocityUpgrade() {
     if(plusSpeedCounter > 100){
         plusSpeedCounter=100
     }
+    if(plusSpeedCounter < 15){
+        plusSpeedCounter=15
+    }
 
     starfield.minVelocity = Math.random()*15+plusSpeedCounter;
     starfield.maxVelocity = Math.random()*45 + starfield.minVelocity + plusSpeedCounter;

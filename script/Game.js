@@ -17,6 +17,8 @@ var GameProperties = {
     rendering: false,
     pressedKeys : [],
     sprite : null,
+    healthBar : null,
+    life : 3,
 
     //skapar spelets canvas för en spelare och lägger in det till indexfil
     //skapar instans av spelaren
@@ -29,14 +31,15 @@ var GameProperties = {
         canvas.setAttribute('id', 'gameCanvas');
         var gameContainer = document.getElementById('gameContainer');
         GameProperties.canvas =  canvas.getContext('2d');
-        var ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         gameContainer.appendChild(canvas);
 
+
         GameProperties.canvas.fillStyle = 'white';
 
         GameProperties.ship = new Ship();
+
         StartGame();
 
         var ifkeydown = 0;
@@ -79,7 +82,9 @@ function Game(){
 function drawSprite() {
 
     GameProperties.sprite = new Image();
+    GameProperties.healthBar = new Image();
     GameProperties.sprite.src = 'Img/ship1.png';
+    GameProperties.healthBar.src = 'Img/healthBar.png';
 
     GameProperties.sprite.onload = function() {
         GameProperties.init();
@@ -96,6 +101,7 @@ function Ship() {
     this.y = 500;
     this.width = 50;
     this.height = 50;
+    this.life = 3;
 }
 
 /**
@@ -104,6 +110,21 @@ function Ship() {
 Ship.prototype.render = function() {
     GameProperties.canvas.clearRect(0,0,window.innerWidth,window.innerHeight);
     GameProperties.canvas.drawImage(GameProperties.sprite, 0,0,50,50, this.x,this.y,this.width, this.height);
+    if(GameProperties.life == 3){
+    GameProperties.canvas.drawImage(GameProperties.healthBar, 0,0,230,150, 20,30,180, 100);
+    }
+    if(GameProperties.life == 2){
+        GameProperties.canvas.drawImage(GameProperties.healthBar, 430,0,230,150, 20,30,180, 100);
+    }
+    if(GameProperties.life == 1){
+        GameProperties.canvas.drawImage(GameProperties.healthBar, 1300,0,1230,150, 20,30,180, 100);
+
+        clearInterval(aniSmooth);
+
+    }
+
+
+
     this.moving();
 }
 /**
@@ -117,6 +138,7 @@ function gameLoop() {
         renderBlasts();
         position();
         EnemyProperties.RegularEnemy.render();
+        //EnemyProperties.RareEnemy.render();
         aniSmooth(gameLoop);
 
     }
@@ -130,6 +152,7 @@ function StartGame() {
     gameLoop();
     spawnEnemyControl();
     spawnRareEnemyControl();
+    spawnRarestEnemyControl();
     BlastControl();
 
 }
@@ -171,13 +194,23 @@ Ship.prototype.moving = function() {
     if (GameProperties.pressedKeys[49]) {
 
         velocityUpgrade(plusSpeedCounter += 30);
-        EnemyProperties.RegularEnemy.speed+=0.25;
+
+
+        for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
+
+            EnemyProperties.Enemies[i].speed += 0.25;
+        }
 
     }
     if (GameProperties.pressedKeys[50]) {
 
         velocityDowngrade(plusSpeedCounter-=30);
-        EnemyProperties.RegularEnemy.speed-=0.25;
+
+        for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
+
+            EnemyProperties.Enemies[i].speed -= 0.25;
+        }
+
 
     }
     if (GameProperties.pressedKeys[82]) {
@@ -202,7 +235,6 @@ Ship.prototype.still = function(e) {
  * Enemie/blast
  * Enemie/Player
  *Färdiga
- * PLayer/blast. Kvar
  */
 function position() {
 
@@ -214,14 +246,23 @@ function position() {
 
             if (Collision(EnemyProperties.Enemies[i], weaponProperties.Blasts[j]))
             {
-                Score.init(EnemyProperties.Enemies[i].y, weaponProperties.Blasts[j].y);
-                EnemyProperties.Enemies.splice(i,1);
+                var Enemy = new Enemies();
 
+                Score.init(EnemyProperties.Enemies[i].y, weaponProperties.Blasts[j].y);
+
+//fixa gubbarnas liv
+                    console.log(Enemy.Enemies.life);
+                    EnemyProperties.Enemies.splice(i,1);
 
             }
             if (Collision(EnemyProperties.Enemies[i],GameProperties.ship))
             {
                 EnemyProperties.Enemies.splice(i,1);
+
+                GameProperties.life -= 1;
+
+                //stoppa spelet
+
             }
         }
     }
@@ -236,11 +277,16 @@ function position() {
  * @constructor
  */
 function Collision(item1,item2) {
-
+    /**
+     * hittas inte objektet så ska det inte spliceas
+     */
     if(item1 === undefined || item2 === undefined)
     {
         return false;
     }
+    /**
+     * blast och enemy colision. enemy splice
+     */
     if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
         item2.y >= item1.y && item2.y <= (item1.y + item1.height))
     {
@@ -249,11 +295,17 @@ function Collision(item1,item2) {
     else {
         return false;
     }
+    /**
+     * om en fiende befinner sig bakom spelaren ska den inte spliceas
+     */
     if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
-        item2.y+40 <= item1.height && item2.y+40 >= (item1.y+40 + item1.height))
+        item2.y <= item1.height && (item2.y + item2.height) >= (item1.y + item1.height+40))
     {
         return false;
     }
+    /**
+     * om en fiende och spelare träffas så spliceas fienden
+     */
     if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
         item2.y >= item1.height && item2.y <= (item1.y + item1.height))
     {
