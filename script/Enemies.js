@@ -156,6 +156,12 @@ RegularEnemy.prototype.render = function(Enemy) {
                     EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
             }
 
+            if(GameProperties.life>=0){
+                GameProperties.life-=1;
+                CallGameOver = true;
+            }
+            console.log(GameProperties.life);
+
         }
 
        /* if(EnemyProperties.Enemies[i].x >= EnemyProperties.Enemies[i].x -30 || EnemyProperties.Enemies[i].x <= EnemyProperties.Enemies[i].x +30) {

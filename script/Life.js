@@ -1,4 +1,4 @@
-
+/*
 var Life = {
 
     init: function () {
@@ -7,12 +7,8 @@ var Life = {
         var playerLife = document.getElementById('playerLife');
 
         for (var i = 0; i < 3; i++) {
-
-            console.log(count);
             playerLife.appendChild(lifeContainer);
         }
-
-
     }
-}
+}*/
 

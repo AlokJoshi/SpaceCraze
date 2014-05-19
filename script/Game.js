@@ -1,5 +1,3 @@
-//skapar allt som ja vill använd amig av för spelare och fiender
-
 /**
  *
  * @type {{canvas: string,
@@ -18,12 +16,13 @@ var GameProperties = {
     pressedKeys : [],
     shipSprite : null,
     healthBar : null,
-    life : 3,
+    life : 5,
     restartGame : false,
     playerAlias : '',
     shipSpriteCounter : 0,
     sprite1 : null,
     shipcount : 0,
+    CallGameOver : false,
 
     //skapar spelets canvas för en spelare och lägger in det till indexfil
     //skapar instans av spelaren
@@ -31,7 +30,6 @@ var GameProperties = {
     //skapar en eventlistener för att styra spelet med knapptryck
 
     init:function(){
-
         var canvas = document.createElement("canvas");
         canvas.setAttribute('id', 'gameCanvas');
         var gameContainer = document.getElementById('gameContainer');
@@ -40,30 +38,19 @@ var GameProperties = {
         canvas.height = window.innerHeight;
         gameContainer.appendChild(canvas);
 
-
         GameProperties.canvas.fillStyle = 'white';
-
         GameProperties.ship = new Ship();
 
         var ifkeydown = 0;
         window.addEventListener('keydown', function(e) {
-
             ifkeydown++;
-
             if(ifkeydown==3) {
-
                 GameProperties.ship.speed = 15;
-
             }
             if(ifkeydown==8) {
-
                 GameProperties.ship.speed = 25;
-
             }
             GameProperties.pressedKeys[e.keyCode] = true;
-
-
-
         });
         window.addEventListener('keyup', function(e) {
             ifkeydown = 0;
@@ -80,10 +67,9 @@ var GameProperties = {
  * @constructor
  */
 function Game(){
-
 }
 /**
- *
+ *laddar in bilder innan init() körs och spelet startar
  */
 function drawSprite() {
 
@@ -92,12 +78,10 @@ function drawSprite() {
     GameProperties.shipSprite.src = 'Img/sprites2.png';
     GameProperties.healthBar.src = 'Img/healthBar.png';
 
-
     GameProperties.shipSprite.onload = function() {
         GameProperties.init();
     };
 }
-
 /**
  * Ship är själva spelarobjektet
  */
@@ -114,29 +98,27 @@ function Ship() {
  * tar bort det som tidigare ritats ut och ritar ut det igen.
  */
 Ship.prototype.render = function() {
-
-    GameProperties.shipcount++;
     GameProperties.canvas.clearRect(0,0,window.innerWidth,window.innerHeight);
+    GameProperties.shipcount++;
 
+    //sprites för animering av spelarskepp
    if (GameProperties.shipcount>0) {
         GameProperties.canvas.drawImage(GameProperties.shipSprite, 0, 0, 162, 215, this.x, this.y, this.width, this.height);
     }
-    if (GameProperties.shipcount>40) {
-        GameProperties.canvas.drawImage(GameProperties.shipSprite, 162, 0, 162, 215, this.x, this.y, this.width, this.height);
+    if (GameProperties.shipcount>25) {
+        GameProperties.canvas.drawImage(GameProperties.shipSprite, 162, 0, 160, 215, this.x, this.y, this.width, this.height);
     }
-    if (GameProperties.shipcount>60) {
+    if (GameProperties.shipcount>50) {
         GameProperties.canvas.drawImage(GameProperties.shipSprite, 323, 0, 160, 215, this.x, this.y, this.width, this.height);
     }
-    if (GameProperties.shipcount>80) {
+    if (GameProperties.shipcount>70) {
         GameProperties.canvas.drawImage(GameProperties.shipSprite, 484, 0, 160, 215, this.x, this.y, this.width, this.height);
     }
     if (GameProperties.shipcount>100) {
         GameProperties.canvas.drawImage(GameProperties.shipSprite, 323, 0, 160, 215, this.x, this.y, this.width, this.height);
-        GameProperties.shipcount=20;
+        GameProperties.shipcount=10;
     }
-
-
-
+    //SPrites för spelare liv
     if(GameProperties.life == 3){
     GameProperties.canvas.drawImage(GameProperties.healthBar, 0,0,230,150, 20,30,180, 100);
     }
@@ -152,7 +134,6 @@ Ship.prototype.render = function() {
  * Gameloopen.
  */
 function gameLoop() {
-
     if (GameProperties.rendering) {
         GameProperties.ship.render();
         //weaponProperties.RegularBlast.render();
@@ -161,6 +142,9 @@ function gameLoop() {
         EnemyProperties.RegularEnemy.render();
         //EnemyProperties.RareEnemy.render();
         aniSmooth(gameLoop);
+        if(GameProperties.CallGameOver === true){
+            gameOver();
+        }
     }
 }
 /**
@@ -174,11 +158,7 @@ function StartGame() {
     spawnRareEnemyControl();
     spawnRarestEnemyControl();
     BlastControl();
-
-
-
 }
-
 //Tagen från paul irish
 var aniSmooth = window.requestAnimationFrame      ||
         window.webkitRequestAnimationFrame        ||
@@ -186,8 +166,6 @@ var aniSmooth = window.requestAnimationFrame      ||
         function( callback ){
             window.setTimeout(callback, 1000 / 60);
 };
-
-
 /**
  *funktion för alla knapptryck som användaren kommer använda sig av.  inte bara för skeppet
  */
@@ -250,7 +228,6 @@ Ship.prototype.moving = function() {
         clearInterval(EnemyProperties.RarestEnemyInterval);
     }
 }
-
 /**
  *Läserna av när den nädrykta tangenten inte är det längre och stannar spelaren
  *
@@ -263,7 +240,6 @@ Ship.prototype.still = function(e) {
 
     }
 }
-
 /**
  * hämtar ut positionen för det olika objekten i canvaserna
  * Enemie/blast
@@ -302,7 +278,7 @@ function position() {
                     GameProperties.life -= 1;
                 }
 
-                if(GameProperties.life === 0) {
+                if(GameProperties.life <= 0) {
                     GameProperties.rendering = false;
                     gameOver();
 
@@ -383,7 +359,6 @@ function gameOver() {
     gameOverSubmitScore.setAttribute('id', 'gameOverSubmitScore');
     gameOver.style.boxShadow = "1px 0px 200px #ffffff";
 
-
     gameContainer.appendChild(gameOver);
 
     gameOver.appendChild(gameOverHeader);
@@ -400,7 +375,6 @@ function gameOver() {
 
     gameOver.appendChild(gameOverSubmitScore);
     gameOverSubmitScore.appendChild(gameOverSubmitScoreText);
-
 
     var shadowEffectCounter = 0;
 
@@ -423,21 +397,14 @@ function gameOver() {
             setTimeout(function(){shadowEffectCounter=10;},30000);
         },1000);
         window.addEventListener('keydown', function(e) {
-
             if(GameProperties.pressedKeys[78] && !GameProperties.rendering) {
-
                 location.reload();
                 gameContainer.removeChild(gameOver);
                 GameProperties.pressedKeys[e.keyCode] = true;
             }
-
-
         });
         window.addEventListener('keyup', function(e) {
-
-
             GameProperties.pressedKeys[e.keyCode] = false;
-
         });
 }
 function gameStartMenu() {
@@ -454,7 +421,6 @@ function gameStartMenu() {
     var gameOverPayerAlias = document.createTextNode('Your Alias: '+'playerAlias');
     var gameOverPlayAgainText = document.createTextNode('Start Game - Press "S"');
 
-
     gameStartMenu.setAttribute('id', 'gameStartMenu');
     gameOverHeader.setAttribute('id', 'headerSpan');
     gameStartmenuPlayerName.setAttribute('id', 'gameStartmenuPlayerName');
@@ -462,22 +428,16 @@ function gameStartMenu() {
     gameOverPlayAgain.setAttribute('id', 'gameOverPlayAgain');
     gameStartMenu.style.boxShadow = "1px 0px 50px #ffffff";
 
-
-
     gameContainer.appendChild(gameStartMenu);
 
     gameStartMenu.appendChild(gameOverHeader);
     gameOverHeader.appendChild(gameOverHeaderText);
-
-
 
     gameStartMenu.appendChild(gameStartmenuPlayerName);
     gameStartmenuPlayerName.appendChild(gameOverPayerAlias);
 
     gameStartMenu.appendChild(gameOverPlayAgain);
     gameOverPlayAgain.appendChild(gameOverPlayAgainText);
-
-
 
     var shadowEffectCounter = 0;
     var clearShadow = setInterval(function(){
@@ -498,28 +458,18 @@ function gameStartMenu() {
         }
         setTimeout(function(){shadowEffectCounter=10;},30000);
     },1000);
-
     window.addEventListener('keydown', function(e) {
 
-
            if(GameProperties.pressedKeys[83] && !GameProperties.rendering) {
-
                StartGame();
                GameProperties.playerAlias = document.getElementById("gameStartmenuPlayerName").value;
                console.log(GameProperties.playerAlias);
                gameContainer.removeChild(gameStartMenu);
                GameProperties.pressedKeys[e.keyCode] = true;
-
             }
-        console.log(GameProperties.pressedKeys[e.keyCode]);
-
     });
     window.addEventListener('keyup', function(e) {
-
-
         GameProperties.pressedKeys[e.keyCode] = false;
-
     });
 }
-
 window.onload = drawSprite();

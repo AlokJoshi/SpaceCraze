@@ -11,6 +11,7 @@ var weaponProperties = {
     currentBlast: 0,
     enemyBlasts : [],
     blastInterval : null,
+    BlastSprite : null,
 
     init:function() {
         //skapar canvas för vape och attribut för detta
@@ -22,8 +23,6 @@ var weaponProperties = {
         canvas.height = window.innerHeight;
         gameContainer.appendChild(canvas);
 
-        //skotten är orangea
-        weaponProperties.canvas.fillStyle = 'orange';
         //startar spelet
         weaponStart();
     }
@@ -46,10 +45,10 @@ function enemyBlastControl() {
 //vanliga skott
 function RegularBlast() {
         this.speed = 5;
-        this.x = GameProperties.ship.x+50;
-        this.y = GameProperties.ship.y-5;
-        this.width = 5;
-        this.height = 5;
+        this.x = GameProperties.ship.x+40;
+        this.y = GameProperties.ship.y;
+        this.width = 20;
+        this.height = 20;
 }
 
 
@@ -70,6 +69,15 @@ function renderBlasts() {
         }
     }
 }
+
+function drawBlastSprite() {
+
+    weaponProperties.BlastSprite = new Image()
+    weaponProperties.BlastSprite.src = 'Img/Blast.png';
+    weaponProperties.BlastSprite.onload = function() {
+        weaponProperties.init();
+    };
+}
 /**
  *
  * @param amount
@@ -88,10 +96,11 @@ function Blast(amount) {
  */
 RegularBlast.prototype.render = function() {
     weaponProperties.canvas.fillRect(this.x, this.y -= this.speed, this.width, this.height);
+    weaponProperties.canvas.drawImage(weaponProperties.BlastSprite, 200, 200,550,550, this.x, this.y, this.width, this.height);
 }
 
 function weaponStart() {
     weaponProperties.rendering = true;
 }
 
-window.onload = weaponProperties.init();
+window.onload = drawBlastSprite();
