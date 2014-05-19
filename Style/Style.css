@@ -58,3 +58,95 @@ Canvas {
     margin-top:50px;
     position:absolute;
 }
+#gameOver {
+    width:500px;
+    height:500px;
+    z-index: 1000;
+    margin-left:370px;
+    margin-top:70px;
+    position:absolute;
+    border-radius: 1000px;
+    transition: box-shadow 1s;
+    background: radial-gradient(ellipse closest-side, white, whitesmoke 10%, darkgray )opacity:0.5);
+    color:white;
+
+}
+#gameStartMenu{
+    width:500px;
+    height:500px;
+    z-index: 1000;
+    margin-left:370px;
+    margin-top:70px;
+    position:absolute;
+    border-radius: 1000px;
+    transition: box-shadow 1s;
+    background: radial-gradient(ellipse closest-side, white, whitesmoke 10%, darkgray )opacity:0.5);
+    color:white;
+
+}
+#headerSpan {
+    width:400px;
+    height:100px;
+    margin-left:50px;
+    margin-top:90px;
+    border:1px solid white;
+
+}
+#gameOverScore {
+    position:absolute;
+    width:150px;
+    height:30px;
+    margin-left:300px;
+    margin-top:50px;
+    border:1px solid white;
+}
+
+#gameOverPlayerName {
+    position:absolute;
+    width:150px;
+    height:30px;
+    margin-left:50px;
+    margin-top:50px;
+    border:1px solid white;
+}
+#gameStartmenuPlayerName
+{
+    position:absolute;
+    width:150px;
+    height:30px;
+    margin-left:170px;
+    margin-top:50px;
+    border:1px solid white;
+}
+#gameOverPlayAgain {
+    position:absolute;
+    width:400px;
+    height:30px;
+    margin-left:50px;
+    margin-top:150px;
+    border:1px solid white;
+    text-align: center;
+}
+
+#gameOverSubmitScore {
+    position:absolute;
+    width:400px;
+    height:50px;
+    margin-left:50px;
+    margin-top:120px;
+    border:1px solid white;
+    text-align: center;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

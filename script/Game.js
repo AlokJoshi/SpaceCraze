@@ -16,9 +16,14 @@ var GameProperties = {
     RegularBlast : null,
     rendering: false,
     pressedKeys : [],
-    sprite : null,
+    shipSprite : null,
     healthBar : null,
     life : 3,
+    restartGame : false,
+    playerAlias : '',
+    shipSpriteCounter : 0,
+    sprite1 : null,
+    shipcount : 0,
 
     //skapar spelets canvas för en spelare och lägger in det till indexfil
     //skapar instans av spelaren
@@ -40,8 +45,6 @@ var GameProperties = {
 
         GameProperties.ship = new Ship();
 
-        StartGame();
-
         var ifkeydown = 0;
         window.addEventListener('keydown', function(e) {
 
@@ -59,6 +62,8 @@ var GameProperties = {
             }
             GameProperties.pressedKeys[e.keyCode] = true;
 
+
+
         });
         window.addEventListener('keyup', function(e) {
             ifkeydown = 0;
@@ -66,6 +71,7 @@ var GameProperties = {
             GameProperties.pressedKeys[e.keyCode] = false;
             GameProperties.ship.speed = 5;
         });
+        gameStartMenu();
     }
 }
 
@@ -81,16 +87,16 @@ function Game(){
  */
 function drawSprite() {
 
-    GameProperties.sprite = new Image();
+    GameProperties.shipSprite = new Image();
     GameProperties.healthBar = new Image();
-    GameProperties.sprite.src = 'Img/ship1.png';
+    GameProperties.shipSprite.src = 'Img/sprites2.png';
     GameProperties.healthBar.src = 'Img/healthBar.png';
 
-    GameProperties.sprite.onload = function() {
+
+    GameProperties.shipSprite.onload = function() {
         GameProperties.init();
     };
 }
-
 
 /**
  * Ship är själva spelarobjektet
@@ -99,8 +105,8 @@ function Ship() {
     this.speed = 5;
     this.x = 600;
     this.y = 500;
-    this.width = 50;
-    this.height = 50;
+    this.width = 100;
+    this.height = 120;
     this.life = 3;
 }
 
@@ -108,8 +114,30 @@ function Ship() {
  * tar bort det som tidigare ritats ut och ritar ut det igen.
  */
 Ship.prototype.render = function() {
+
+
+    GameProperties.shipcount++;
     GameProperties.canvas.clearRect(0,0,window.innerWidth,window.innerHeight);
-    GameProperties.canvas.drawImage(GameProperties.sprite, 0,0,50,50, this.x,this.y,this.width, this.height);
+
+   if (GameProperties.shipcount>0) {
+        GameProperties.canvas.drawImage(GameProperties.shipSprite, 0, 0, 162, 215, this.x, this.y, this.width, this.height);
+    }
+    if (GameProperties.shipcount>40) {
+        GameProperties.canvas.drawImage(GameProperties.shipSprite, 162, 0, 162, 215, this.x, this.y, this.width, this.height);
+    }
+    if (GameProperties.shipcount>60) {
+        GameProperties.canvas.drawImage(GameProperties.shipSprite, 323, 0, 160, 215, this.x, this.y, this.width, this.height);
+    }
+    if (GameProperties.shipcount>80) {
+        GameProperties.canvas.drawImage(GameProperties.shipSprite, 484, 0, 160, 215, this.x, this.y, this.width, this.height);
+    }
+    if (GameProperties.shipcount>100) {
+        GameProperties.canvas.drawImage(GameProperties.shipSprite, 323, 0, 160, 215, this.x, this.y, this.width, this.height);
+        GameProperties.shipcount=20;
+    }
+
+
+
     if(GameProperties.life == 3){
     GameProperties.canvas.drawImage(GameProperties.healthBar, 0,0,230,150, 20,30,180, 100);
     }
@@ -118,13 +146,7 @@ Ship.prototype.render = function() {
     }
     if(GameProperties.life == 1){
         GameProperties.canvas.drawImage(GameProperties.healthBar, 1300,0,1230,150, 20,30,180, 100);
-
-        clearInterval(aniSmooth);
-
     }
-
-
-
     this.moving();
 }
 /**
@@ -140,7 +162,6 @@ function gameLoop() {
         EnemyProperties.RegularEnemy.render();
         //EnemyProperties.RareEnemy.render();
         aniSmooth(gameLoop);
-
     }
 }
 /**
@@ -155,6 +176,8 @@ function StartGame() {
     spawnRarestEnemyControl();
     BlastControl();
 
+
+
 }
 
 //Tagen från paul irish
@@ -167,7 +190,7 @@ var aniSmooth = window.requestAnimationFrame      ||
 
 
 /**
- *funktion för alla knaptryck som användaren kommer använda sig av
+ *funktion för alla knapptryck som användaren kommer använda sig av.  inte bara för skeppet
  */
 Ship.prototype.moving = function() {
 
@@ -190,7 +213,9 @@ Ship.prototype.moving = function() {
 
         GameProperties.ship.y += this.speed;
     }
-
+    /**
+     * gamesettings
+     */
     if (GameProperties.pressedKeys[49]) {
 
         velocityUpgrade(plusSpeedCounter += 30);
@@ -210,12 +235,20 @@ Ship.prototype.moving = function() {
 
             EnemyProperties.Enemies[i].speed -= 0.25;
         }
-
-
     }
     if (GameProperties.pressedKeys[82]) {
 
-        randomise();
+        //randomise();
+        GameProperties.rendering = true;
+    }
+    if (GameProperties.pressedKeys[80]) {
+        GameProperties.rendering = false;
+
+        clearInterval(weaponProperties.blastInterval);
+
+        clearInterval(EnemyProperties.EnemyInterval);
+        clearInterval(EnemyProperties.RareEnemyInterval);
+        clearInterval(EnemyProperties.RarestEnemyInterval);
     }
 }
 
@@ -228,8 +261,10 @@ Ship.prototype.moving = function() {
 Ship.prototype.still = function(e) {
     if(GameProperties.pressedKeys[e]) {
         GameProperties.ship.x = GameProperties.ship.x;
+
     }
 }
+
 /**
  * hämtar ut positionen för det olika objekten i canvaserna
  * Enemie/blast
@@ -243,26 +278,36 @@ function position() {
 
         for (var j=0; j < weaponProperties.Blasts.length; j++)
         {
-
+            /**
+             * Skickar vidare yled till Scorescrptet.
+             * ändrar plats på blasts
+             * minskar liv vid kollison
+             * splicear ur arrayerna
+             */
             if (Collision(EnemyProperties.Enemies[i], weaponProperties.Blasts[j]))
             {
-                var Enemy = new Enemies();
+                weaponProperties.Blasts[j].x = +2000;
+                EnemyProperties.Enemies[i].Life-=1;
 
-                Score.init(EnemyProperties.Enemies[i].y, weaponProperties.Blasts[j].y);
+                if(EnemyProperties.Enemies[i].Life === 0) {
+                    Score.init(EnemyProperties.Enemies[i].y, weaponProperties.Blasts[j].y);
+                    EnemyProperties.Enemies.splice(i, 1)
 
-//fixa gubbarnas liv
-                    console.log(Enemy.Enemies.life);
-                    EnemyProperties.Enemies.splice(i,1);
-
+                }
             }
             if (Collision(EnemyProperties.Enemies[i],GameProperties.ship))
             {
-                EnemyProperties.Enemies.splice(i,1);
 
-                GameProperties.life -= 1;
+                if (EnemyProperties.Enemies.splice(i, 1)) {
+                    Score.init(-25, -25);
+                    GameProperties.life -= 1;
+                }
 
-                //stoppa spelet
+                if(GameProperties.life === 0) {
+                    GameProperties.rendering = false;
+                    gameOver();
 
+                }
             }
         }
     }
@@ -313,6 +358,169 @@ function Collision(item1,item2) {
     }
 }
 
+function gameOver() {
+
+    GameProperties.rendering = false;
+    var gameContainer = document.getElementById('gameContainer');
+
+    var gameOver = document.createElement('div');
+    var gameOverHeader = document.createElement('h1');
+    var gameOverScore = document.createElement('span');
+    var gameOverPlayerName = document.createElement('span');
+    var gameOverPlayAgain = document.createElement('span');
+    var gameOverSubmitScore = document.createElement('span');
+
+    var gameOverHeaderText = document.createTextNode('SpaceCraze');//byt ut mot logga
+    var gameOverScorePoints = document.createTextNode('Your score: ' + Score.score.toFixed(2) + ' points');
+    var gameOverPayerAlias = document.createTextNode('Your Alias: '+'playerAlias');
+    var gameOverPlayAgainText = document.createTextNode('Want to play again? - press "S"');
+    var gameOverSubmitScoreText = document.createTextNode('Do you want to submit your score?');
+
+    gameOver.setAttribute('id', 'gameOver');
+    gameOverHeader.setAttribute('id', 'headerSpan');
+    gameOverScore.setAttribute('id', 'gameOverScore');
+    gameOverPlayerName.setAttribute('id', 'gameOverPlayerName');
+    gameOverPlayAgain.setAttribute('id', 'gameOverPlayAgain');
+    gameOverSubmitScore.setAttribute('id', 'gameOverSubmitScore');
+    gameOver.style.boxShadow = "1px 0px 200px #ffffff";
+
+
+    gameContainer.appendChild(gameOver);
+
+    gameOver.appendChild(gameOverHeader);
+    gameOverHeader.appendChild(gameOverHeaderText);
+
+    gameOver.appendChild(gameOverScore);
+    gameOverScore.appendChild(gameOverScorePoints);
+
+    gameOver.appendChild(gameOverPlayerName);
+    gameOverPlayerName.appendChild(gameOverPayerAlias);
+
+    gameOver.appendChild(gameOverPlayAgain);
+    gameOverPlayAgain.appendChild(gameOverPlayAgainText);
+
+    gameOver.appendChild(gameOverSubmitScore);
+    gameOverSubmitScore.appendChild(gameOverSubmitScoreText);
+
+
+    var shadowEffectCounter = 0;
+
+        var clearShadow = setInterval(function(){
+
+            if(shadowEffectCounter === 10) {
+                clearInterval(clearShadow);
+            }
+            if(shadowEffectCounter === 1) {
+                gameOver.style.boxShadow = "10px 0px 120px #ffffff";
+
+                if(shadowEffectCounter>=1) {
+                    shadowEffectCounter=0;
+                }
+            }
+            else if(shadowEffectCounter===0) {
+                gameOver.style.boxShadow = "-5px 0px 200px #ffffff";
+                shadowEffectCounter++;
+            }
+            setTimeout(function(){shadowEffectCounter=10;},30000);
+        },1000);
+        window.addEventListener('keydown', function(e) {
+
+            if(GameProperties.pressedKeys[78] && !GameProperties.rendering) {
+
+                location.reload();
+                gameContainer.removeChild(gameOver);
+                GameProperties.pressedKeys[e.keyCode] = true;
+            }
+
+
+        });
+        window.addEventListener('keyup', function(e) {
+
+
+            GameProperties.pressedKeys[e.keyCode] = false;
+
+        });
+}
+function gameStartMenu() {
+
+    GameProperties.rendering = false;
+    var gameContainer = document.getElementById('gameContainer');
+
+    var gameStartMenu = document.createElement('div');
+    var gameOverHeader = document.createElement('h1');
+    var gameStartmenuPlayerName = document.createElement('input');
+    var gameOverPlayAgain = document.createElement('span');
+
+    var gameOverHeaderText = document.createTextNode('SpaceCraze');//byt ut mot logga
+    var gameOverPayerAlias = document.createTextNode('Your Alias: '+'playerAlias');
+    var gameOverPlayAgainText = document.createTextNode('Start Game - Press "S"');
+
+
+    gameStartMenu.setAttribute('id', 'gameStartMenu');
+    gameOverHeader.setAttribute('id', 'headerSpan');
+    gameStartmenuPlayerName.setAttribute('id', 'gameStartmenuPlayerName');
+
+    gameOverPlayAgain.setAttribute('id', 'gameOverPlayAgain');
+    gameStartMenu.style.boxShadow = "1px 0px 50px #ffffff";
+
+
+
+    gameContainer.appendChild(gameStartMenu);
+
+    gameStartMenu.appendChild(gameOverHeader);
+    gameOverHeader.appendChild(gameOverHeaderText);
+
+
+
+    gameStartMenu.appendChild(gameStartmenuPlayerName);
+    gameStartmenuPlayerName.appendChild(gameOverPayerAlias);
+
+    gameStartMenu.appendChild(gameOverPlayAgain);
+    gameOverPlayAgain.appendChild(gameOverPlayAgainText);
+
+
+
+    var shadowEffectCounter = 0;
+    var clearShadow = setInterval(function(){
+
+        if(shadowEffectCounter === 10) {
+            clearInterval(clearShadow);
+        }
+        if(shadowEffectCounter === 1) {
+            gameStartMenu.style.boxShadow = "10px 0px 120px #ffffff";
+
+            if(shadowEffectCounter>=1) {
+                shadowEffectCounter=0;
+            }
+        }
+        else if(shadowEffectCounter===0) {
+            gameStartMenu.style.boxShadow = "-5px 0px 200px #ffffff";
+            shadowEffectCounter++;
+        }
+        setTimeout(function(){shadowEffectCounter=10;},30000);
+    },1000);
+
+    window.addEventListener('keydown', function(e) {
+
+
+           if(GameProperties.pressedKeys[83] && !GameProperties.rendering) {
+
+               StartGame();
+               GameProperties.playerAlias = document.getElementById("gameStartmenuPlayerName").value;
+               console.log(GameProperties.playerAlias);
+               gameContainer.removeChild(gameStartMenu);
+               GameProperties.pressedKeys[e.keyCode] = true;
+
+            }
+        console.log(GameProperties.pressedKeys[e.keyCode]);
+
+    });
+    window.addEventListener('keyup', function(e) {
+
+
+        GameProperties.pressedKeys[e.keyCode] = false;
+
+    });
+}
+
 window.onload = drawSprite();
-
-

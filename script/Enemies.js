@@ -16,6 +16,10 @@ var EnemyProperties = {
     RegularEnemyLife : 1,
     RareEnemyLife : 2,
     RarestEnemyLife : 4,
+    enemyLooseHealth : false,
+    EnemyInterval : null,
+    RareEnemyInterval : null,
+    RarestEnemyInterval : null,
 
     init: function () {
 
@@ -42,22 +46,22 @@ function Enemies(){
  * Normalt varannan sekund
  */
 function spawnEnemyControl() {
-      var EnemyInterval = setInterval(function(){
+      EnemyProperties.EnemyInterval = setInterval(function(){
         spawnEnemy(1);
 
     }, 2000);
 }
 function spawnRareEnemyControl() {
-    var EnemyInterval = setInterval(function(){
+    EnemyProperties.RareEnemyInterval = setInterval(function(){
         spawnRareEnemy(1);
 
-    }, 5000);
+    }, 4000);
 }
 function spawnRarestEnemyControl() {
-    var EnemyInterval = setInterval(function(){
+    EnemyProperties.RarestEnemyInterval = setInterval(function(){
         spawnRarestEnemy(1);
 
-    }, 20000);
+    }, 10000);
 }
 /**
  *
@@ -70,7 +74,7 @@ function RegularEnemy() {
     this.y = 40;
     this.width = 20;
     this.height = 20;
-    this.RegularEnemyLife = 1;
+    this.Life = 2;
 }
 /**
  *
@@ -78,24 +82,26 @@ function RegularEnemy() {
  * en fiende som inte spawnar lika ofta som regularenemy
  */
 function RareEnemy() {
+    var that = this;
     this.speed = 1.3;
     this.x = Math.random()*window.innerWidth;
     this.y = 40;
     this.width = 10;
     this.height = 10;
-    this.RareEnemyLife = 2;
+    this.Life = 2;
 }
 /**
  *ovanlig fiende
  *
  */
 function RarestEnemy() {
+
     this.speed = 0.4;
     this.x = Math.random()*window.innerWidth;
     this.y = 40;
     this.width = 40;
     this.height = 40;
-    this.RarestEnemyLife = 4;
+    this.Life = 4;
 }
 /**
  *
@@ -128,26 +134,30 @@ function spawnRarestEnemy(amount) {
  * Om en fiende klarar sig hela vägen ner så skapas den åter högst upp på ny random position
  * Renderfunktionen fungerar till alla enemies trots namnet
  */
-RegularEnemy.prototype.render = function() {
+RegularEnemy.prototype.render = function(Enemy) {
+
     EnemyProperties.canvas.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
     for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
         //om man if:ar varje fiende kanske man kan få det att använda this. istället. if(regularshop) {dens speed(egen variabel för speed?)}
                                                                                       //när jag böt från this. till Enemies i arrayen försvann speedcontrol
-            EnemyProperties.canvas.fillRect(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed,
+            EnemyProperties.canvas.fillRect(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed ,
                 EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
+
+
 
         /**
          * fienden spawnar högst upp i rutan om den når botten
          */
         if(EnemyProperties.Enemies[i].y > window.innerHeight) {
 
-            if(EnemyProperties.Enemies[EnemyProperties.RegularEnemy]) {
+            if(EnemyProperties.Enemies[i]) {
                 EnemyProperties.Enemies[i] = new RegularEnemy(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed,
                     EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
             }
 
         }
+
        /* if(EnemyProperties.Enemies[i].x >= EnemyProperties.Enemies[i].x -30 || EnemyProperties.Enemies[i].x <= EnemyProperties.Enemies[i].x +30) {
 
             EnemyProperties.Enemies[i] = new RegularEnemy(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += this.speed,
@@ -155,6 +165,7 @@ RegularEnemy.prototype.render = function() {
         }*/
     }
 }
+
 
 /**
  *
