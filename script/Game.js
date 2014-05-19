@@ -115,7 +115,6 @@ function Ship() {
  */
 Ship.prototype.render = function() {
 
-
     GameProperties.shipcount++;
     GameProperties.canvas.clearRect(0,0,window.innerWidth,window.innerHeight);
 
