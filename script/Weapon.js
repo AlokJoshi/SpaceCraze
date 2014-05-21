@@ -10,8 +10,8 @@ var weaponProperties = {
     Blasts : [],
     currentBlast: 0,
     enemyBlasts : [],
-    blastInterval : null,
     BlastSprite : null,
+
 
     init:function() {
         //skapar canvas för vape och attribut för detta
@@ -36,19 +36,14 @@ function BlastControl() {
 
     }, 180);
 }
-function enemyBlastControl() {
-    var blastInterval = setInterval(function(){
-        Blast(1);
 
-    }, 300);
-}
 //vanliga skott
 function RegularBlast() {
         this.speed = 5;
         this.x = GameProperties.ship.x+40;
         this.y = GameProperties.ship.y;
-        this.width = 20;
-        this.height = 20;
+        this.width = 25;
+        this.height = 25;
 }
 
 
@@ -95,8 +90,11 @@ function Blast(amount) {
  * renderfunktionen som bestämmmer hur skotten ska röra sig och från vart
  */
 RegularBlast.prototype.render = function() {
+
     weaponProperties.canvas.fillRect(this.x, this.y -= this.speed, this.width, this.height);
-    weaponProperties.canvas.drawImage(weaponProperties.BlastSprite, 200, 200,550,550, this.x, this.y, this.width, this.height);
+    weaponProperties.canvas.drawImage(weaponProperties.BlastSprite, 200, 200,350,350, this.x, this.y, this.width, this.height);
+
+
 }
 
 function weaponStart() {

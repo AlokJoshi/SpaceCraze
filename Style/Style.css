@@ -27,6 +27,9 @@ Canvas {
 #enemyCanvas{
     z-index: 10;
 }
+#powerUpCanvas{
+    z-index: 15;
+}
 #info {
     width: 800px;
     margin-left: auto;
@@ -85,11 +88,10 @@ Canvas {
 
 }
 #headerSpan {
-    width:400px;
+    width:600px;
     height:100px;
     margin-left:50px;
     margin-top:90px;
-    border:1px solid white;
 
 }
 #gameOverScore {
@@ -100,22 +102,63 @@ Canvas {
     margin-top:50px;
     border:1px solid white;
 }
-
-#gameOverPlayerName {
+#PlayerAlias {
     position:absolute;
-    width:150px;
+    width:180px;
     height:30px;
-    margin-left:50px;
-    margin-top:50px;
+    margin-left:165px;
+
+}
+#Controls {
+    position:absolute;
+    width:180px;
+    height:30px;
+    margin-left:160px;
+    margin-top:120px;
     border:1px solid white;
 }
-#gameStartmenuPlayerName
-{
+#GameControls {
+    position:absolute;
+    width:180px;
+    height:300px;
+    margin-left:20px;
+    margin-top:50px;
+    border:1px solid white;
+    color:#ffffff;
+    -webkit-perspective: 800;
+    -webkit-perspective-origin: center 300px;
+}
+#StartGame {
+    position:absolute;
+    width:180px;
+    height:30px;
+    margin-left:160px;
+    margin-top:85px;
+    border:1px solid white;
+}
+#Highscore {
+    position:absolute;
+    width:220px;
+    height:30px;
+    margin-left:140px;
+    margin-top:155px;
+    border:1px solid white;
+}
+#HighScoreDiv {
+    position:absolute;
+    width:180px;
+    height:300px;
+    margin-left:1020px;
+    margin-top:50px;
+    border:1px solid white;
+    color:#ffffff;
+}
+#gameStartmenuPlayerName{
     position:absolute;
     width:150px;
     height:30px;
     margin-left:170px;
-    margin-top:50px;
+    margin-top:30px;
     border:1px solid white;
 }
 #gameOverPlayAgain {
@@ -127,7 +170,6 @@ Canvas {
     border:1px solid white;
     text-align: center;
 }
-
 #gameOverSubmitScore {
     position:absolute;
     width:400px;
@@ -136,8 +178,9 @@ Canvas {
     margin-top:120px;
     border:1px solid white;
     text-align: center;
-
 }
+
+
 
 
 
