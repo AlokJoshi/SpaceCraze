@@ -24,6 +24,9 @@ var GameProperties = {
     shipcount : 0,
     GameOverBool : false,
     spriteBundle : null,
+    UserScore : 0,
+    HighScoreArray : [],
+    HighScoreObject : {},
 
     //skapar spelets canvas för en spelare och lägger in det till indexfil
     //skapar instans av spelaren
@@ -168,6 +171,7 @@ function StartGame() {
     spawnRarestEnemyControl();
     BlastControl();
     //spawnPowerupControl();
+
 }
 //Tagen från paul irish
 var aniSmooth = window.requestAnimationFrame      ||
@@ -181,7 +185,6 @@ var aniSmooth = window.requestAnimationFrame      ||
  */
 Ship.prototype.moving = function() {
     if (GameProperties.pressedKeys[37]) {
-
         GameProperties.ship.x -= this.speed;
     }
     if (GameProperties.pressedKeys[39]) {
@@ -197,6 +200,7 @@ Ship.prototype.moving = function() {
     if (GameProperties.pressedKeys[40]) {
 
         GameProperties.ship.y += this.speed;
+        gameOver();
     }
     /**
      * gamesettings
@@ -349,8 +353,8 @@ function gameOver() {
     //var gameOverHeaderText = document.createTextNode('SpaceCraze');
     GameProperties.spriteBundle.src = 'Img/spritez.png';
     var gameOverScorePoints = document.createTextNode('Your score: ' + Score.score.toFixed(2) + ' points');
-    var gameOverPayerAlias = document.createTextNode('Your Alias: '+'playerAlias');
-    var gameOverPlayAgainText = document.createTextNode('Want to play again? - press "S"');
+    var gameOverPayerAlias = document.createTextNode('Your Alias: '+ GameProperties.playerAlias);
+    var gameOverPlayAgainText = document.createTextNode('Want to play again? - press "N"');
     var gameOverSubmitScoreText = document.createTextNode('Do you want to submit your score?');
 
     gameOver.setAttribute('id', 'gameOver');
@@ -364,7 +368,7 @@ function gameOver() {
     gameContainer.appendChild(gameOver);
 
     gameOver.appendChild(gameOverHeader);
-    gameOverHeader.appendChild(GameProperties.spriteBundle);
+    GameProperties.canvas.drawImage(GameProperties.spriteBundle, 0, 429, 700 ,120, 211, 110, 700, 200);
 
     gameOver.appendChild(gameOverScore);
     gameOverScore.appendChild(gameOverScorePoints);
@@ -409,6 +413,46 @@ function gameOver() {
                 gameContainer.removeChild(gameOver);
                 GameProperties.pressedKeys[e.keyCode] = true;
             }
+            if(e.keyCode===74){
+                console.log('j');
+                var HighscoreList = localStorage.getItem('Highscore');
+
+              /*  var UpdatedHighscoreList = localStorage.setItem('Highscore', HighscoreList + ' Alias: '+GameProperties.playerAlias +'  -  Score:  ' + Score.score.toFixed(2)+ '\n');
+                var HighscoreList1 = localStorage.getItem('Highscore');
+                GameProperties.HighScoreArray = HighscoreList1.split("\n");
+                console.log(GameProperties.HighScoreArray);*/
+
+                GameProperties.HighScoreObject = {
+                    Alias: GameProperties.playerAlias,
+                    Score: Score.score
+                }
+                GameProperties.HighScoreArray.push(GameProperties.HighScoreObject)
+
+                console.log(EnemyProperties.HighScoreArray);
+                console.log(EnemyProperties.HighScoreObject);
+                //fortsätt loopa in object i array
+
+                var HighScoreDiv = document.createElement('div');
+                var HighScoreSpan = document.createElement('span');
+
+
+                HighScoreDiv.setAttribute('id', 'HighScoreDiv')
+                var retrievedHighscoreList = localStorage.getItem('Highscore');
+
+                var HighScoreText = document.createTextNode(retrievedHighscoreList);
+
+                gameContainer.appendChild(HighScoreDiv);
+                HighScoreDiv.appendChild(HighScoreSpan);
+
+                HighScoreSpan.appendChild(HighScoreText);
+                console.log(UpdatedHighscoreList)
+            }
+            if(GameProperties.pressedKeys[18] && GameProperties.pressedKeys[79]){
+
+
+               localStorage.clear('Highscore')
+            }
+
         });
         window.addEventListener('keyup', function(e) {
             GameProperties.pressedKeys[e.keyCode] = false;
@@ -427,7 +471,7 @@ function gameStartMenu() {
     var PlayerAlias = document.createElement('span');
     var Highscore = document.createElement('span');
 
-    var gameOverPayerAlias = document.createTextNode('Your Alias: '+'playerAlias');
+    var gameOverPayerAlias = document.createTextNode('');
     var gameStartPlayText = document.createTextNode('Start Game - Press "Enter"');
     var ControlsText = document.createTextNode('Learn Controls - Press "C"');
     var playerAliasText = document.createTextNode('Choose your Alias wisely');
@@ -489,90 +533,99 @@ function gameStartMenu() {
             if (GameProperties.shipcount <= 0) {
                 if (GameProperties.pressedKeys) {
                     GameProperties.playerAlias = document.getElementById("gameStartmenuPlayerName").value;
-
                 }
             }
-
             if (GameProperties.playerAlias.length >= 3) {
                 if (GameProperties.pressedKeys[13] && !GameProperties.rendering) {
-
                     gameContainer.removeChild(gameStartMenu);
                     StartGame();
                     GameProperties.pressedKeys[e.keyCode] = true;
                 }
             }
-            if (e.keyCode===83 && GameProperties.shipcount >3 && !GameProperties.rendering) {
-                console.log('2');
-                StartGame();
-            }
-            if (GameProperties.pressedKeys[80]) {
-                GameProperties.rendering = false;
-                console.log('1');
-                clearInterval(weaponProperties.blastInterval);
-                clearInterval(EnemyProperties.EnemyInterval);
-                clearInterval(EnemyProperties.RareEnemyInterval);
-                clearInterval(EnemyProperties.RarestEnemyInterval);
-            }
+            if(GameProperties.pressedKeys[13] && GameProperties.playerAlias.length < 3){
+                var NotValidAlias = document.createElement('span');
+                var NotValidAliasText = document.createTextNode('Not a valid Alias. You need atleast 3 symbols');
 
+                NotValidAlias.setAttribute('id','NotValidAlias');
+                gameContainer.appendChild(NotValidAlias);
+                NotValidAlias.appendChild(NotValidAliasText);
 
+                setTimeout(function(){gameContainer.removeChild(NotValidAlias)},3000);
+
+            }
         }
+        if(GameProperties.GameOverBool === false) {
 
-
-
-            if(GameProperties.GameOverBool === false) {
-
-                if (GameProperties.pressedKeys[67] && !GameProperties.rendering) {
-                        console.log('C');
-                        var GameControls = document.createElement('div');
-                        var GameControlsSpan = document.createElement('span');
-                        //var GameControlsHeader = document.createTextNode('h1');
-
-                        GameControls.setAttribute('id', 'GameControls')
-
-                        var GameControlsText = document.createTextNode('Controls');
-                        /*var GameControlsMovingUp = document.createTextNode('Arrow Up = "Up"');
-                        var GameControlsMovingDown = document.createTextNode('Arrow Down = "Down"');
-                        var GameControlsMovingLeft = document.createTextNode('Arrow Left = "Left"');
-                        var GameControlsMovingRight = document.createTextNode('Arrow Right = "Right"');*/
-
-                        gameContainer.appendChild(GameControls);
-                        GameControls.appendChild(GameControlsSpan);
-
-                        GameControlsSpan.appendChild(GameControlsText);
-                        /*GameControlsSpan.appendChild(GameControlsMovingUp);
-                        GameControlsSpan.appendChild(GameControlsMovingDown);
-                        GameControlsSpan.appendChild(GameControlsMovingLeft);
-                        GameControlsSpan.appendChild(GameControlsMovingRight);*/
-
-                        GameProperties.pressedKeys[e.keyCode] = true;
-                }
-                if (GameProperties.pressedKeys[72] && !GameProperties.rendering) {
-                    console.log('H');
-                    var HighScoreDiv = document.createElement('div');
-                    var HighScoreSpan = document.createElement('span');
+            if (GameProperties.pressedKeys[67] && !GameProperties.rendering) {
+                    console.log('hej1');
+                    var GameControls = document.createElement('div');
+                    var GameControlsSpan = document.createElement('span');
                     //var GameControlsHeader = document.createTextNode('h1');
 
-                    HighScoreDiv.setAttribute('id', 'HighScoreDiv')
+                    GameControls.setAttribute('id', 'GameControls')
 
-                    var HighScoreText = document.createTextNode('Highscore');
+                    var GameControlsText = document.createTextNode('Controls');
                     /*var GameControlsMovingUp = document.createTextNode('Arrow Up = "Up"');
-                     var GameControlsMovingDown = document.createTextNode('Arrow Down = "Down"');
-                     var GameControlsMovingLeft = document.createTextNode('Arrow Left = "Left"');
-                     var GameControlsMovingRight = document.createTextNode('Arrow Right = "Right"');*/
+                    var GameControlsMovingDown = document.createTextNode('Arrow Down = "Down"');
+                    var GameControlsMovingLeft = document.createTextNode('Arrow Left = "Left"');
+                    var GameControlsMovingRight = document.createTextNode('Arrow Right = "Right"');*/
 
-                    gameContainer.appendChild(HighScoreDiv);
-                    HighScoreDiv.appendChild(HighScoreSpan);
+                    gameContainer.appendChild(GameControls);
+                    GameControls.appendChild(GameControlsSpan);
 
-                    HighScoreSpan.appendChild(HighScoreText);
+                    GameControlsSpan.appendChild(GameControlsText);
                     /*GameControlsSpan.appendChild(GameControlsMovingUp);
                      GameControlsSpan.appendChild(GameControlsMovingDown);
                      GameControlsSpan.appendChild(GameControlsMovingLeft);
                      GameControlsSpan.appendChild(GameControlsMovingRight);*/
 
                     GameProperties.pressedKeys[e.keyCode] = true;
-                }
             }
+            if(e.keyCode===79){
+                gameContainer.removeChild(GameControls);
+            }
+            if (GameProperties.pressedKeys[72] && !GameProperties.rendering) {
+                var numberPattern = /\d+/g;
+                var HighScoreDiv = document.createElement('div');
+                var HighScoreSpan = document.createElement('span');
+                //var GameControlsHeader = document.createTextNode('h1');
 
+                HighScoreDiv.setAttribute('id', 'HighScoreDiv')
+                var retrievedHighscoreList = localStorage.getItem('Highscore');
+                GameProperties.HighScoreArray = retrievedHighscoreList.split('\n');
+                var HighestScore = retrievedHighscoreList.match(numberPattern).sort(function(a, b){return b-a});
+                console.log(Math.max(parseInt(HighestScore)));
+
+                var HighScoreText = document.createTextNode(retrievedHighscoreList);
+                /*var GameControlsMovingUp = document.createTextNode('Arrow Up = "Up"');
+                 var GameControlsMovingDown = document.createTextNode('Arrow Down = "Down"');
+                 var GameControlsMovingLeft = document.createTextNode('Arrow Left = "Left"');
+                 var GameControlsMovingRight = document.createTextNode('Arrow Right = "Right"');*/
+
+                gameContainer.appendChild(HighScoreDiv);
+                HighScoreDiv.appendChild(HighScoreSpan);
+
+                HighScoreSpan.appendChild(HighScoreText);
+                /*GameControlsSpan.appendChild(GameControlsMovingUp);
+                 GameControlsSpan.appendChild(GameControlsMovingDown);
+                 GameControlsSpan.appendChild(GameControlsMovingLeft);
+                 GameControlsSpan.appendChild(GameControlsMovingRight);*/
+
+                GameProperties.pressedKeys[e.keyCode] = true;
+            }
+        }
+        if (e.keyCode===83 && GameProperties.shipcount >3 && !GameProperties.rendering) {
+
+            StartGame();
+
+        }
+        if (GameProperties.pressedKeys[80]) {
+            GameProperties.rendering = false;
+            clearInterval(weaponProperties.blastInterval);
+            clearInterval(EnemyProperties.EnemyInterval);
+            clearInterval(EnemyProperties.RareEnemyInterval);
+            clearInterval(EnemyProperties.RarestEnemyInterval);
+        }
     });
     window.addEventListener('keyup', function(e) {
         GameProperties.pressedKeys[e.keyCode] = false;

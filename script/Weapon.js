@@ -46,7 +46,6 @@ function RegularBlast() {
         this.height = 25;
 }
 
-
 /**
  * suddar ut skott.
  */
@@ -92,7 +91,7 @@ function Blast(amount) {
 RegularBlast.prototype.render = function() {
 
     weaponProperties.canvas.fillRect(this.x, this.y -= this.speed, this.width, this.height);
-    weaponProperties.canvas.drawImage(weaponProperties.BlastSprite, 200, 200,350,350, this.x, this.y, this.width, this.height);
+    weaponProperties.canvas.drawImage(weaponProperties.BlastSprite, 100, 50,550,650, this.x, this.y, this.width, this.height);
 
 
 }
