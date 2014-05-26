@@ -28,6 +28,8 @@ var GameProperties = {
     HighScoreArray : [],
     HighScoreObject : {},
     pushObject : null,
+    enemySprite1 : null,
+
 
     //skapar spelets canvas för en spelare och lägger in det till indexfil
     //skapar instans av spelaren
@@ -45,6 +47,7 @@ var GameProperties = {
 
         GameProperties.canvas.fillStyle = 'white';
         GameProperties.ship = new Ship();
+        RegularEnemy(GameProperties.regularEnemySpeed);
 
         var ifkeydown = 0;
         window.addEventListener('keydown', function(e) {
@@ -81,9 +84,11 @@ function drawSprite() {
     GameProperties.shipSprite = new Image();
     GameProperties.healthBar = new Image();
     GameProperties.spriteBundle = new Image();
+    GameProperties.enemySprite1 = new Image();
     GameProperties.shipSprite.src = 'Img/sprites2.png';
     GameProperties.healthBar.src = 'Img/healthBar.png';
-    GameProperties.spriteBundle.src = 'Img/spritez.png'
+    GameProperties.spriteBundle.src = 'Img/spritez.png';
+    GameProperties.enemySprite1.src = 'Img/enemysprites1.png';
 
     GameProperties.shipSprite.onload = function() {
         GameProperties.init();
@@ -223,7 +228,6 @@ Ship.prototype.moving = function() {
     if (GameProperties.pressedKeys[40]) {
 
         GameProperties.ship.y += this.speed;
-        gameOver();
     }
     /**
      * gamesettings
@@ -265,7 +269,6 @@ Ship.prototype.moving = function() {
 Ship.prototype.still = function(e) {
     if(GameProperties.pressedKeys[e]) {
         GameProperties.ship.x = GameProperties.ship.x;
-
     }
 }
 /**
@@ -572,8 +575,10 @@ function gameStartMenu() {
         setTimeout(function(){shadowEffectCounter=10;},30000);
     },1000);
     window.addEventListener('keydown', function(e) {
+        var gameContainer = document.getElementById('gameContainer');
+        var HighScoreDiv = document.getElementById('HighScoreDiv');
+        var GameControls = document.getElementById('GameControls');
 
-        console.log(e.keyCode);
 
         if (GameProperties.GameOverBool === false) {
             if (GameProperties.shipcount <= 0) {
@@ -600,10 +605,14 @@ function gameStartMenu() {
 
             }
         }
-        if(GameProperties.GameOverBool === false) {
 
+
+
+        if(GameProperties.GameOverBool === false) {
             if (GameProperties.pressedKeys[67] && !GameProperties.rendering) {
-                    console.log('hej1');
+                if(gameContainer.contains(GameControls)){
+                    gameContainer.removeChild(GameControls);
+                }
                     var GameControls = document.createElement('div');
                     var GameControlsSpan = document.createElement('span');
                     //var GameControlsHeader = document.createTextNode('h1');
@@ -627,11 +636,10 @@ function gameStartMenu() {
 
                     GameProperties.pressedKeys[e.keyCode] = true;
             }
-            if(e.keyCode===79){
-                console.log('O');
-                gameContainer.removeChild(GameControls);
-            }
             if (GameProperties.pressedKeys[72] && !GameProperties.rendering) {
+                if(gameContainer.contains(HighScoreDiv)){
+                    gameContainer.removeChild(HighScoreDiv);
+                }
                 console.log('H');
                 //var numberPattern = /\d+/g;
                 var HighScoreDiv = document.createElement('div');

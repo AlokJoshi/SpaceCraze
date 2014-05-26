@@ -20,6 +20,7 @@ var EnemyProperties = {
     EnemyInterval : null,
     RareEnemyInterval : null,
     RarestEnemyInterval : null,
+    regularEnemySpeed : 0.9,
 
     init: function () {
 
@@ -41,27 +42,35 @@ var EnemyProperties = {
 
 function Enemies(){
 }
+
 /**
  * Interval för hur ofta fiender ska skapas
  * Normalt varannan sekund
  */
+
+
 function spawnEnemyControl() {
+    var regularEnemyInterval = 2000;
       EnemyProperties.EnemyInterval = setInterval(function(){
         spawnEnemy(1);
+        setTimeout(function(){regularEnemyInterval=500},10000);
 
-    }, 2000);
+    }, regularEnemyInterval);
 }
 function spawnRareEnemyControl() {
+    var RareEnemyInterval = 4000;
     EnemyProperties.RareEnemyInterval = setInterval(function(){
         spawnRareEnemy(1);
-
-    }, 4000);
+        setTimeout(function(){RareEnemyInterval=2000},10000);
+    }, RareEnemyInterval);
 }
 function spawnRarestEnemyControl() {
+    var RarestEnemyInterval = 10000;
     EnemyProperties.RarestEnemyInterval = setInterval(function(){
         spawnRarestEnemy(1);
+        setTimeout(function(){RarestEnemyInterval=5000},10000);
 
-    }, 10000);
+    }, RarestEnemyInterval);
 }
 /**
  *
@@ -69,11 +78,11 @@ function spawnRarestEnemyControl() {
  * vanligaste fienden
  */
 function RegularEnemy() {
-    this.speed = 0.6;
+    this.speed = 2;
     this.x = Math.random()*window.innerWidth;
     this.y = 40;
-    this.width = 20;
-    this.height = 20;
+    this.width = 50;
+    this.height = 50;
     this.Life = 2;
     this.points = 55;
 }
@@ -84,11 +93,11 @@ function RegularEnemy() {
  */
 function RareEnemy() {
     var that = this;
-    this.speed = 1.3;
+    this.speed = 2.8;
     this.x = Math.random()*window.innerWidth;
     this.y = 40;
-    this.width = 10;
-    this.height = 10;
+    this.width = 30;
+    this.height = 30;
     this.Life = 2;
     this.points = 70;
 }
@@ -98,11 +107,11 @@ function RareEnemy() {
  */
 function RarestEnemy() {
 
-    this.speed = 0.4;
+    this.speed = 1.4;
     this.x = Math.random()*window.innerWidth;
     this.y = 40;
-    this.width = 40;
-    this.height = 40;
+    this.width = 100;
+    this.height = 100;
     this.Life = 4;
     this.points = 99;
 }
@@ -143,9 +152,13 @@ RegularEnemy.prototype.render = function(Enemy) {
 
     for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
         //om man if:ar varje fiende kanske man kan få det att använda this. istället. if(regularshop) {dens speed(egen variabel för speed?)}
-                                                                                      //när jag böt från this. till Enemies i arrayen försvann speedcontrol
-            EnemyProperties.canvas.fillRect(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed ,
+
+            EnemyProperties.canvas.drawImage(GameProperties.enemySprite1, 900, 900, 800, 800,EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed ,
                 EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
+
+                                                                       //när jag böt från this. till Enemies i arrayen försvann speedcontrol
+           /* EnemyProperties.canvas.fillRect(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed ,
+                EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);*/
 
 
 
