@@ -75,6 +75,7 @@ function RegularEnemy() {
     this.width = 20;
     this.height = 20;
     this.Life = 2;
+    this.points = 55;
 }
 /**
  *
@@ -89,6 +90,7 @@ function RareEnemy() {
     this.width = 10;
     this.height = 10;
     this.Life = 2;
+    this.points = 70;
 }
 /**
  *ovanlig fiende
@@ -102,6 +104,7 @@ function RarestEnemy() {
     this.width = 40;
     this.height = 40;
     this.Life = 4;
+    this.points = 99;
 }
 /**
  *

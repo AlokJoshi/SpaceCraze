@@ -54,12 +54,23 @@ Canvas {
     z-index: 100;
     border-radius:1px;
 }
+#playerLife{
+    height:80px;
+    width: 230px;
+    background:white;
+    position:absolute;
+    margin-top:575px;
+    opacity: 0.2;
+    border-radius: 0.5em;
+
+}
 #lifeContainer {
     width: 10px;
     height: 30px;
     background-color:white;
     margin-top:50px;
     position:absolute;
+    border:1px solid #ffffff;
 }
 #gameOver {
     width:500px;
@@ -139,20 +150,22 @@ Canvas {
 }
 #Highscore {
     position:absolute;
-    width:350px;
+    width:250px;
     height:30px;
     margin-left:120px;
     margin-top:155px;
     border-bottom:1px solid white;
-
+    overflow-x: scroll;
+    font-family: "FranklinGothicDemiRegular", sans-serif;
 }
+
 #HighScoreDiv {
     position:absolute;
-    width:300px;
+    width:250px;
     height:300px;
-    margin-left:920px;
+    margin-left:970px;
     margin-top:50px;
-    border:1px solid white;
+    font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
     color:#ffffff;
     white-space: pre;
 
@@ -194,9 +207,9 @@ Canvas {
 }
 #gameOverSubmitScore {
     position:absolute;
-    width:300px;
+    width:380px;
     height:30px;
-    margin-left:100px;
+    margin-left:60px;
     margin-top:100px;
     border-bottom:1px solid white;
     text-align: center;

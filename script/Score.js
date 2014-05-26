@@ -6,16 +6,12 @@ var Score = {
     score : 0,
     minusScoreTrue : false,
 
-    init: function (blastY,enemyY) {
+    init: function (points) {
 
         var digit = document.getElementById('digit');
 
-        var ScorePoints = (blastY / enemyY + plusSpeedCounter);
+        var ScorePoints = (points + plusSpeedCounter);
         this.score += ScorePoints;
-
-        if(Score.minusScoreTrue = true) {
-            this.score - 50;
-        }
 
         digit.innerHTML = this.score.toFixed(2);
     }
