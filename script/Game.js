@@ -50,6 +50,7 @@ var GameProperties = {
         GameProperties.ship = new Ship();
         RegularEnemy(GameProperties.regularEnemySpeed);
 
+
         var ifkeydown = 0;
         window.addEventListener('keydown', function(e) {
             ifkeydown++;
@@ -447,7 +448,6 @@ function gameOver() {
             }
             if(e.keyCode===74){
                 console.log('j');
-                var HighscoreList = localStorage.getItem('Highscore');
 
               /*  var UpdatedHighscoreList = localStorage.setItem('Highscore', HighscoreList + ' Alias: '+GameProperties.playerAlias +'  -  Score:  ' + Score.score.toFixed(2)+ '\n');
                 var HighscoreList1 = localStorage.getItem('Highscore');
@@ -459,10 +459,12 @@ function gameOver() {
                     Score : Score.score
                 }
 
-                if(GameProperties.HighScoreArray <= 0){
-                localStorage.setItem('Highscore', JSON.stringify(GameProperties.HighScoreArray));
+                var HighscoreList = localStorage.getItem('Highscore');
+                //GameProperties.HighScoreArray = JSON.parse(HighscoreList);
+
+                if(HighscoreList===null){
+                    localStorage.setItem('Highscore', JSON.stringify(GameProperties.HighScoreArray));
                 }
-                else{
                 var retrievedList = localStorage.getItem('Highscore');
 
                 GameProperties.HighScoreArray = JSON.parse(retrievedList);
@@ -470,7 +472,7 @@ function gameOver() {
                 GameProperties.HighScoreArray.push(GameProperties.HighScoreObject);
                 console.log(GameProperties.HighScoreArray);
                 var UpdatedHighscoreList = localStorage.setItem('Highscore', '\n'+JSON.stringify(GameProperties.HighScoreArray));
-                }
+
                 var retrievedHighscoreList = localStorage.getItem('Highscore');
                 var parsedHighscoreLists = JSON.parse(retrievedHighscoreList);
 
