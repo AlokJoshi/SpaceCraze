@@ -20,7 +20,6 @@ var EnemyProperties = {
     EnemyInterval : null,
     RareEnemyInterval : null,
     RarestEnemyInterval : null,
-    regularEnemySpeed : 0.9,
 
     init: function () {
 
@@ -53,7 +52,7 @@ function spawnEnemyControl() {
     var regularEnemyInterval = 2000;
       EnemyProperties.EnemyInterval = setInterval(function(){
         spawnEnemy(1);
-        setTimeout(function(){regularEnemyInterval=500},10000);
+        setTimeout(function(){regularEnemyInterval===500},10000);
 
     }, regularEnemyInterval);
 }

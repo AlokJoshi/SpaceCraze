@@ -29,6 +29,7 @@ var GameProperties = {
     HighScoreObject : {},
     pushObject : null,
     enemySprite1 : null,
+    ControlSprite : null,
 
 
     //skapar spelets canvas för en spelare och lägger in det till indexfil
@@ -85,10 +86,12 @@ function drawSprite() {
     GameProperties.healthBar = new Image();
     GameProperties.spriteBundle = new Image();
     GameProperties.enemySprite1 = new Image();
+    GameProperties.ControlSprite = new Image();
     GameProperties.shipSprite.src = 'Img/sprites2.png';
     GameProperties.healthBar.src = 'Img/healthBar.png';
     GameProperties.spriteBundle.src = 'Img/spritez.png';
     GameProperties.enemySprite1.src = 'Img/enemysprites1.png';
+    GameProperties.ControlSprite.src = 'Img/howto.png';
 
     GameProperties.shipSprite.onload = function() {
         GameProperties.init();
@@ -239,7 +242,7 @@ Ship.prototype.moving = function() {
 
         for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
 
-            EnemyProperties.Enemies[i].speed += 0.25;
+            EnemyProperties.Enemies[i].speed +=1;
         }
     }
     if (GameProperties.pressedKeys[50]) {
@@ -248,7 +251,7 @@ Ship.prototype.moving = function() {
 
         for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
 
-            EnemyProperties.Enemies[i].speed -= 0.25;
+            EnemyProperties.Enemies[i].speed -= 1;
         }
     }
     if (GameProperties.pressedKeys[82]) {
@@ -522,7 +525,7 @@ function gameStartMenu() {
 
     var gameOverPayerAlias = document.createTextNode('');
     var gameStartPlayText = document.createTextNode('Start Game - Press "Enter"');
-    var ControlsText = document.createTextNode('Learn Controls - Press "C"');
+    var ControlsText = document.createTextNode('How to play - Press "C"');
     var playerAliasText = document.createTextNode('Choose your Alias wisely');
     var HighscoreText = document.createTextNode('Check your highscore - Press "H"');
 
@@ -615,25 +618,13 @@ function gameStartMenu() {
                 }
                     var GameControls = document.createElement('div');
                     var GameControlsSpan = document.createElement('span');
-                    //var GameControlsHeader = document.createTextNode('h1');
-
                     GameControls.setAttribute('id', 'GameControls')
-
                     var GameControlsText = document.createTextNode('Controls');
-                    /*var GameControlsMovingUp = document.createTextNode('Arrow Up = "Up"');
-                    var GameControlsMovingDown = document.createTextNode('Arrow Down = "Down"');
-                    var GameControlsMovingLeft = document.createTextNode('Arrow Left = "Left"');
-                    var GameControlsMovingRight = document.createTextNode('Arrow Right = "Right"');*/
-
-                    gameContainer.appendChild(GameControls);
+                    /*gameContainer.appendChild(GameControls);
                     GameControls.appendChild(GameControlsSpan);
+                    GameControlsSpan.appendChild(GameControlsText);*/
 
-                    GameControlsSpan.appendChild(GameControlsText);
-                    /*GameControlsSpan.appendChild(GameControlsMovingUp);
-                     GameControlsSpan.appendChild(GameControlsMovingDown);
-                     GameControlsSpan.appendChild(GameControlsMovingLeft);
-                     GameControlsSpan.appendChild(GameControlsMovingRight);*/
-
+                    GameProperties.canvas.drawImage(GameProperties.ControlSprite, 0, 0, 400 ,400, 0, 100, 400, 400);
                     GameProperties.pressedKeys[e.keyCode] = true;
             }
             if (GameProperties.pressedKeys[72] && !GameProperties.rendering) {
