@@ -35,7 +35,7 @@ Starfield.prototype.initialise = function(div) {
     this.canvas.width = this.width;
     this.canvas.height = this.height;
 
-};
+}
 
 Starfield.prototype.start = function() {
 
@@ -44,7 +44,11 @@ Starfield.prototype.start = function() {
     for(var i=0; i<this.stars; i++) {
         stars[i] = new Star(Math.random()*this.width, Math.random()*this.height, Math.random()*3+1,
                 (Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
+
+
     }
+
+
     this.stars = stars;
 
     var self = this;
@@ -53,6 +57,8 @@ Starfield.prototype.start = function() {
         self.update();
         self.draw();
     }, 1000 / this.fps);
+
+
 };
 
 Starfield.prototype.stop = function() {
@@ -67,11 +73,15 @@ Starfield.prototype.update = function() {
         star.y += dt * star.velocity;
         //	If the star has moved from the bottom of the screen, spawn it at the top.
         if(star.y > this.height) {
+
+
             this.stars[i] = new Star(Math.random()*this.width, 0, Math.random()*3+1,
                     (Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
         }
     }
 };
+
+
 
 Starfield.prototype.draw = function() {
 

@@ -221,16 +221,18 @@ Ship.prototype.moving = function() {
     if (GameProperties.pressedKeys[39]) {
 
         GameProperties.ship.x += this.speed;
-
     }
     if (GameProperties.pressedKeys[38]) {
 
         GameProperties.ship.y -= this.speed;
-
     }
     if (GameProperties.pressedKeys[40]) {
 
         GameProperties.ship.y += this.speed;
+    }
+    if (GameProperties.pressedKeys[87]) {
+
+        randomise();
     }
     /**
      * gamesettings
@@ -238,7 +240,6 @@ Ship.prototype.moving = function() {
     if (GameProperties.pressedKeys[49]) {
         GameProperties.rendering = true;
         velocityUpgrade(plusSpeedCounter += 30);
-
 
         for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
 
@@ -256,7 +257,7 @@ Ship.prototype.moving = function() {
     }
     if (GameProperties.pressedKeys[82]) {
 
-     //randomise();
+     randomise();
 
     GameProperties.rendering = true;
 
@@ -458,9 +459,10 @@ function gameOver() {
                     Score : Score.score
                 }
 
-                //kör denna ifall arrayen är tom
-                //localStorage.setItem('Highscore', JSON.stringify(GameProperties.HighScoreArray));
-
+                if(GameProperties.HighScoreArray <= 0){
+                localStorage.setItem('Highscore', JSON.stringify(GameProperties.HighScoreArray));
+                }
+                else{
                 var retrievedList = localStorage.getItem('Highscore');
 
                 GameProperties.HighScoreArray = JSON.parse(retrievedList);
@@ -468,7 +470,7 @@ function gameOver() {
                 GameProperties.HighScoreArray.push(GameProperties.HighScoreObject);
                 console.log(GameProperties.HighScoreArray);
                 var UpdatedHighscoreList = localStorage.setItem('Highscore', '\n'+JSON.stringify(GameProperties.HighScoreArray));
-
+                }
                 var retrievedHighscoreList = localStorage.getItem('Highscore');
                 var parsedHighscoreLists = JSON.parse(retrievedHighscoreList);
 
@@ -478,10 +480,6 @@ function gameOver() {
 
                     GameProperties.HighScoreArray[i] =  '\n' + 'Alias: ' + parsedHighscoreLists[i].Alias + ' | Score:' + parsedHighscoreLists[i].Score;
                 }
-
-
-
-
 
                 var HighScoreDiv = document.createElement('div');
                 var HighScoreSpan = document.createElement('span');
@@ -608,9 +606,6 @@ function gameStartMenu() {
 
             }
         }
-
-
-
         if(GameProperties.GameOverBool === false) {
             if (GameProperties.pressedKeys[67] && !GameProperties.rendering) {
                 if(gameContainer.contains(GameControls)){

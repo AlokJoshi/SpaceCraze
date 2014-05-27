@@ -155,8 +155,6 @@ Canvas {
     margin-left:120px;
     margin-top:155px;
     border-bottom:1px solid white;
-    overflow-x: scroll;
-    font-family: "FranklinGothicDemiRegular", sans-serif;
 }
 
 #HighScoreDiv {
