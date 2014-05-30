@@ -31,6 +31,7 @@ var GameProperties = {
     enemySprite1 : null,
     ControlSprite : null,
     DOMInstance : null,
+    Collision : null,
 
 
     //skapar spelets canvas för en spelare och lägger in det till indexfil
@@ -168,7 +169,7 @@ Ship.prototype.render = function() {
 function gameLoop() {
     if (GameProperties.rendering) {
         GameProperties.ship.render();
-        //weaponProperties.RegularBlast.render();
+        //WeaponProperties.RegularBlast.render();
         renderBlasts();
         position();
         EnemyProperties.RegularEnemy.render();
@@ -183,7 +184,7 @@ function gameLoop() {
  *
  * @constructor startar spelet
  */
-function StartGame() {
+function startGame() {
     var gameContainer = document.getElementById('gameContainer');
     var HighScoreDiv = document.getElementById('HighScoreDiv');
     var GameControls = document.getElementById('GameControls');
@@ -277,18 +278,12 @@ Ship.prototype.still = function(e) {
         GameProperties.ship.x = GameProperties.ship.x;
     }
 }
-/**
- * hämtar ut positionen för det olika objekten i canvaserna
- * Enemie/blast
- * Enemie/Player
- *Färdiga
- */
-function position() {
 
+function position(){
     for (var i=0; i < EnemyProperties.Enemies.length; i++)
     {
 
-        for (var j=0; j < weaponProperties.Blasts.length; j++)
+        for (var j=0; j < WeaponProperties.Blasts.length; j++)
         {
             /**
              * Skickar vidare yled till Scorescrptet.
@@ -296,9 +291,9 @@ function position() {
              * minskar liv80 vid kollison
              * splicear ur arrayerna
              */
-            if (Collision(EnemyProperties.Enemies[i], weaponProperties.Blasts[j]))
+            if (Collision(EnemyProperties.Enemies[i], WeaponProperties.Blasts[j]))
             {
-                weaponProperties.Blasts[j].x = +2000;
+                WeaponProperties.Blasts[j].x = +2000;
                 EnemyProperties.Enemies[i].Life-=1;
 
                 if(EnemyProperties.Enemies[i].Life === 0) {
@@ -324,6 +319,7 @@ function position() {
         }
     }
 }
+
 /**
  * ekvationer för när och hur objekten ska tas bort
  *
@@ -339,6 +335,12 @@ function Collision(item1,item2) {
     if(item1 === undefined || item2 === undefined)
     {
         return false;
+    }
+    /**
+     * om en fiende befinner sig bakom spelaren ska den inte spliceas
+     */
+    if(item2.y < item1.y){
+        return false
     }
     /**
      * blast och enemy kollision. enemy splice
@@ -362,18 +364,14 @@ function Collision2(item1,item2) {
         return false;
     }
     /**
-     * om en fiende befinner sig bakom spelaren ska den inte spliceas
-     */
-    if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
-        item2.y <= item1.height && (item2.y + item2.height) >= (item1.y + item1.height))
-    {
-        return false;
-    }
-    /**
      * om en fiende och spelare träffas så spliceas fienden
      */
+
+    if((item2.y + item2.height) < item1.y){
+        return false
+    }
     if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
-        item2.y >= item1.height && item2.y <= (item1.y - item1.height))
+        item2.y >= item1.height+60 && item2.y <= (item1.y - item1.height+60))
     {
         return true;
     }

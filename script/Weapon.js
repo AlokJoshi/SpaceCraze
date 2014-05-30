@@ -2,7 +2,7 @@
  *
  * @type {{canvas: string, RegularBlast: null, rendering: boolean, Blasts: Array, currentBlast: number, init: init}}
  */
-var weaponProperties = {
+var WeaponProperties = {
     canvas : "",
     RegularBlast : null,
     RegularEnemyBlast : null,
@@ -18,7 +18,7 @@ var weaponProperties = {
         var canvas = document.createElement("canvas");
         canvas.setAttribute('id', 'weaponCanvas');
         var gameContainer = document.getElementById('gameContainer')
-        weaponProperties.canvas = canvas.getContext('2d');
+        WeaponProperties.canvas = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         gameContainer.appendChild(canvas);
@@ -31,13 +31,13 @@ function Weapons() {
 }
 //interval för hur ofta skotten ska avfyras
 function BlastControl() {
-    weaponProperties.blastInterval = setInterval(function(){
+    WeaponProperties.blastInterval = setInterval(function(){
         Blast(1);
         document.getElementById('audio').play();
 
     }, 180);
 
-    weaponProperties.blastInterval = setInterval(function(){
+    WeaponProperties.blastInterval = setInterval(function(){
         ;
         document.getElementById('audio').play();
 
@@ -58,19 +58,19 @@ function RegularBlast() {
  * suddar ut skott.
  */
 function renderBlasts() {
-    weaponProperties.canvas.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    WeaponProperties.canvas.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-    for(var i=0;i<weaponProperties.Blasts.length;i++) {
+    for(var i=0;i<WeaponProperties.Blasts.length;i++) {
         //skriver ut skotten från array
 
-            weaponProperties.Blasts[i].render();
+            WeaponProperties.Blasts[i].render();
 
        //tar bort skottet från arrayen om det lämnar skärmen
-        if(weaponProperties.Blasts[i].y-10000 > window.innerHeight) {
-            weaponProperties.Blasts.splice(i,1);
+        if(WeaponProperties.Blasts[i].y-10000 > window.innerHeight) {
+            WeaponProperties.Blasts.splice(i,1);
         }
-        else if(weaponProperties.Blasts[i].y > window.innerHeight+1000) {
-            weaponProperties.Blasts.splice(i,1);
+        else if(WeaponProperties.Blasts[i].y > window.innerHeight+1000) {
+            WeaponProperties.Blasts.splice(i,1);
         }
 
     }
@@ -78,10 +78,10 @@ function renderBlasts() {
 
 function drawBlastSprite() {
 
-    weaponProperties.BlastSprite = new Image()
-    weaponProperties.BlastSprite.src = 'Img/Blast.png';
-    weaponProperties.BlastSprite.onload = function() {
-        weaponProperties.init();
+    WeaponProperties.BlastSprite = new Image()
+    WeaponProperties.BlastSprite.src = 'Img/Blast.png';
+    WeaponProperties.BlastSprite.onload = function() {
+        WeaponProperties.init();
     };
 }
 /**
@@ -93,8 +93,8 @@ function drawBlastSprite() {
  */
 function Blast(amount) {
     for(var i=0;i<amount;i++) {
-        weaponProperties.Blasts[weaponProperties.currentBlast] = new RegularBlast();
-        weaponProperties.currentBlast++;
+        WeaponProperties.Blasts[WeaponProperties.currentBlast] = new RegularBlast();
+        WeaponProperties.currentBlast++;
     }
 }
 /**
@@ -102,14 +102,14 @@ function Blast(amount) {
  */
 RegularBlast.prototype.render = function() {
 
-    weaponProperties.canvas.fillRect(this.x, this.y -= this.speed, this.width, this.height);
-    weaponProperties.canvas.drawImage(weaponProperties.BlastSprite, 100, 50,550,650, this.x, this.y, this.width, this.height);
+    WeaponProperties.canvas.fillRect(this.x, this.y -= this.speed, this.width, this.height);
+    WeaponProperties.canvas.drawImage(WeaponProperties.BlastSprite, 100, 50,550,650, this.x, this.y, this.width, this.height);
 
 
 }
 
 function weaponStart() {
-    weaponProperties.rendering = true;
+    WeaponProperties.rendering = true;
 }
 
 window.onload = drawBlastSprite();

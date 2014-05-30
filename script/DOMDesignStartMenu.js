@@ -30,7 +30,7 @@ this.DOMClassStartMenu =  function(){
     gameOverHeader.setAttribute('id', 'headerSpan');
     gameStartmenuPlayerName.setAttribute('id', 'gameStartmenuPlayerName');
     Controls.setAttribute('id', 'Controls');
-    gameStartPlay.setAttribute('id','StartGame');
+    gameStartPlay.setAttribute('id','startGame');
     PlayerAlias.setAttribute('id','PlayerAlias');
     Highscore.setAttribute('id','Highscore');
     gameStartMenu.style.boxShadow = "1px 0px 50px #ffffff";
@@ -99,7 +99,7 @@ this.DOMClassStartMenu =  function(){
             if (GameProperties.playerAlias.length >= 3) {
                 if (GameProperties.pressedKeys[13] && !GameProperties.rendering) {
                     gameContainer.removeChild(gameStartMenu);
-                    StartGame();
+                    startGame();
                     GameProperties.pressedKeys[e.keyCode] = true;
                 }
             }
@@ -167,7 +167,7 @@ this.DOMClassStartMenu =  function(){
         if (e.keyCode===83 && GameProperties.shipcount >3 && !GameProperties.rendering) {
 
 
-            StartGame();
+            startGame();
             GameProperties.pressedKeys[72].disabled;
             GameProperties.pressedKeys[67].disabled;
 
@@ -175,7 +175,7 @@ this.DOMClassStartMenu =  function(){
         if (GameProperties.pressedKeys[80]) {
 
             GameProperties.rendering = false;
-            clearInterval(weaponProperties.blastInterval);
+            clearInterval(WeaponProperties.blastInterval);
             clearInterval(EnemyProperties.EnemyInterval);
             clearInterval(EnemyProperties.RareEnemyInterval);
             clearInterval(EnemyProperties.RarestEnemyInterval);
