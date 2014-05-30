@@ -552,8 +552,8 @@ function gameStartMenu() {
     gameContainer.appendChild(gameStartMenu);
     gameStartMenu.appendChild(gameOverHeader);
 
-    var headerWidth = window.innerWidth/4;
-    var headerHeight = window.innerHeight/4;
+    var headerWidth = window.innerWidth/6;
+    var headerHeight = window.innerHeight/6;
     GameProperties.canvas.drawImage(GameProperties.spriteBundle, 0, 429, 700 ,120, headerWidth, headerHeight, 700, 200);
 
     gameStartMenu.appendChild(gameStartmenuPlayerName);
