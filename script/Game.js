@@ -307,7 +307,7 @@ function position() {
 
                 }
             }
-            if (Collision(EnemyProperties.Enemies[i],GameProperties.ship))
+            if (Collision2(EnemyProperties.Enemies[i],GameProperties.ship))
             {
                 Score.init(EnemyProperties.Enemies[i].points);
                 if (EnemyProperties.Enemies.splice(i, 1)) {
@@ -354,15 +354,26 @@ function Collision(item1,item2) {
      * om en fiende befinner sig bakom spelaren ska den inte spliceas
      */
     if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
-        item2.y <= item1.height && (item2.y + item2.height) >= (item1.y + item1.height+40))
+        item2.y <= item1.height && (item2.y + item2.height+100) >= (item1.y + item1.height))
     {
         return false;
     }
+}
+function Collision2(item1,item2) {
+    /**
+     * hittas inte objektet så ska det inte spliceas
+     */
+    if(item1 === undefined || item2 === undefined)
+    {
+        return false;
+    }
+
     /**
      * om en fiende och spelare träffas så spliceas fienden
      */
+
     if((item2.x + item2.width) >= item1.x  && item2.x <= (item1.x + item1.width) &&
-        item2.y >= item1.height && item2.y <= (item1.y + item1.height))
+        item2.y >= item1.height && item2.y <= (item1.y - item1.height))
     {
         return true;
     }

@@ -33,9 +33,17 @@ function Weapons() {
 function BlastControl() {
     weaponProperties.blastInterval = setInterval(function(){
         Blast(1);
+        document.getElementById('audio').play();
 
     }, 180);
+
+    weaponProperties.blastInterval = setInterval(function(){
+        ;
+        document.getElementById('audio').play();
+
+    }, 100);
 }
+
 
 //vanliga skott
 function RegularBlast() {
@@ -58,9 +66,13 @@ function renderBlasts() {
             weaponProperties.Blasts[i].render();
 
        //tar bort skottet från arrayen om det lämnar skärmen
-        if(weaponProperties.Blasts[i].y-200 > window.innerHeight) {
+        if(weaponProperties.Blasts[i].y-10000 > window.innerHeight) {
             weaponProperties.Blasts.splice(i,1);
         }
+        else if(weaponProperties.Blasts[i].y > window.innerHeight+1000) {
+            weaponProperties.Blasts.splice(i,1);
+        }
+
     }
 }
 

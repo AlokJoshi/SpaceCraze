@@ -8,8 +8,6 @@ var EnemyProperties = {
     RareEnemy : null,
     RarestEnemy : null,
     rendering: false,
-   /* randomTopPos : Math.floor(Math.random() * (window.innerWidth)),
-    randomLeftPos : Math.floor(Math.random() * (window.innerHeight)),*/
     Enemies : [],
     RareEnemies : [],
     CurrentEnemy : 0,

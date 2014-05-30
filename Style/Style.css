@@ -59,7 +59,7 @@ Canvas {
     width: 230px;
     background:white;
     position:absolute;
-    margin-top:575px;
+    margin-top:48%;
     opacity: 0.2;
     border-radius: 0.5em;
 
@@ -89,7 +89,7 @@ Canvas {
     width:500px;
     height:500px;
     z-index: 1000;
-    margin-left:370px;
+    margin-left:30%;
     margin-top:70px;
     position:absolute;
     border-radius: 1000px;
