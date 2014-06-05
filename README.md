@@ -16,7 +16,6 @@ SpaceCraze
         https://docs.google.com/spreadsheets/d/1aeVvF4AvJVBSK_CFRCjscwfAtNnvDJWFL2jYYpaBD7Q/edit
          <p>Sprint review</p>
         https://docs.google.com/document/d/1TloNXpwUgKOFRW9pIpJvJo5PZdEmhQr5AStxK3WeLYA/edit
-
          <p>Testfall</p>
         https://docs.google.com/document/d/11n3_gXKjd2C7S6mAJU3MfohONxJVfY8LUiWGP2-fQjA/edit
          <p>Testfall</p>
