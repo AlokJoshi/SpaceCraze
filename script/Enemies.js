@@ -150,7 +150,7 @@ RegularEnemy.prototype.render = function(Enemy) {
     for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
         //om man if:ar varje fiende kanske man kan få det att använda this. istället. if(regularshop) {dens speed(egen variabel för speed?)}
 
-            EnemyProperties.canvas.drawImage(GameProperties.enemySprite1, 900, 900, 800, 800,EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed ,
+            EnemyProperties.canvas.drawImage(GameProperties.enemySprite1, 0, 0, 700, 700,EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed ,
                 EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
 
                                                                        //när jag böt från this. till Enemies i arrayen försvann speedcontrol
@@ -164,9 +164,11 @@ RegularEnemy.prototype.render = function(Enemy) {
          */
         if(EnemyProperties.Enemies[i].y > window.innerHeight) {
 
-            if(EnemyProperties.Enemies[i]) {
-                EnemyProperties.Enemies[i] = new RegularEnemy(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed,
-                    EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
+            if(EnemyProperties.Enemies[i] = RegularEnemy ) {
+
+                spawnEnemy(2);
+               /* EnemyProperties.Enemies[i] = new RegularEnemy(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed,
+                    EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);*/
             }
 
             /*if(GameProperties.life>=0){

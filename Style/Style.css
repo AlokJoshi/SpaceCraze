@@ -140,7 +140,7 @@ Canvas {
     -webkit-perspective: 800;
     -webkit-perspective-origin: center 300px;
 }
-#StartGame {
+#startGame {
     position:absolute;
     width:220px;
     height:30px;

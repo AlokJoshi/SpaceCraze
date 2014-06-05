@@ -33,7 +33,6 @@ var GameProperties = {
     DOMInstance : null,
     Collision : null,
 
-
     //skapar spelets canvas för en spelare och lägger in det till indexfil
     //skapar instans av spelaren
     //startar spelet
@@ -51,7 +50,6 @@ var GameProperties = {
         GameProperties.canvas.fillStyle = 'white';
         GameProperties.ship = new Ship();
         RegularEnemy(GameProperties.regularEnemySpeed);
-
 
         var ifkeydown = 0;
         window.addEventListener('keydown', function(e) {
@@ -73,7 +71,6 @@ var GameProperties = {
         gameStartMenu();
     }
 }
-
 /**
  *
  * @constructor
@@ -111,7 +108,6 @@ function Ship() {
     this.height = 120;
     this.life = 3;
 }
-
 /**
  * tar bort det som tidigare ritats ut och ritar ut det igen.
  */
@@ -185,6 +181,7 @@ function gameLoop() {
  * @constructor startar spelet
  */
 function startGame() {
+
     var gameContainer = document.getElementById('gameContainer');
     var HighScoreDiv = document.getElementById('HighScoreDiv');
     var GameControls = document.getElementById('GameControls');
@@ -194,10 +191,6 @@ function startGame() {
     if(gameContainer.contains(GameControls)){
         gameContainer.removeChild(GameControls);
     }
-
-
-
-
     GameProperties.rendering = true;
     gameLoop();
     spawnEnemyControl();
@@ -205,7 +198,6 @@ function startGame() {
     spawnRarestEnemyControl();
     BlastControl();
     //spawnPowerupControl();
-
 }
 //Tagen från paul irish
 var aniSmooth = window.requestAnimationFrame      ||
@@ -254,18 +246,13 @@ Ship.prototype.moving = function() {
         velocityDowngrade(plusSpeedCounter -= 30);
 
         for (var i = 0; i < EnemyProperties.Enemies.length; i++) {
-
             EnemyProperties.Enemies[i].speed -= 1;
         }
     }
     if (GameProperties.pressedKeys[82]) {
-
-     randomise();
-
+    randomise();
     GameProperties.rendering = true;
-
      }
-
 }
 /**
  *Läserna av när den nädrykta tangenten inte är det längre och stannar spelaren
@@ -278,11 +265,9 @@ Ship.prototype.still = function(e) {
         GameProperties.ship.x = GameProperties.ship.x;
     }
 }
-
 function position(){
     for (var i=0; i < EnemyProperties.Enemies.length; i++)
     {
-
         for (var j=0; j < WeaponProperties.Blasts.length; j++)
         {
             /**
@@ -300,7 +285,6 @@ function position(){
                     Score.init(EnemyProperties.Enemies[i].points);
 
                     EnemyProperties.Enemies.splice(i, 1)
-
                 }
             }
             if (Collision2(EnemyProperties.Enemies[i],GameProperties.ship))
@@ -309,11 +293,9 @@ function position(){
                 if (EnemyProperties.Enemies.splice(i, 1)) {
                     GameProperties.life -= 1;
                 }
-
                 if(GameProperties.life <= 0) {
                     GameProperties.rendering = false;
                     gameOver();
-
                 }
             }
         }
@@ -353,7 +335,6 @@ function Collision(item1,item2) {
     else {
         return false;
     }
-
 }
 function Collision2(item1,item2) {
     /**

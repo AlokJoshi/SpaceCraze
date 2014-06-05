@@ -34,13 +34,9 @@ function BlastControl() {
     WeaponProperties.blastInterval = setInterval(function(){
         Blast(1);
         document.getElementById('audio').play();
-
     }, 180);
-
     WeaponProperties.blastInterval = setInterval(function(){
-        ;
         document.getElementById('audio').play();
-
     }, 100);
 }
 
