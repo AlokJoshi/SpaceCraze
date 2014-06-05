@@ -40,7 +40,7 @@ this.DOMClassStartMenu =  function(){
 
     var headerWidth = window.innerWidth/6;
     var headerHeight = window.innerHeight/6;
-    GameProperties.canvas.drawImage(GameProperties.spriteBundle, 0, 429, 700 ,120, headerWidth, headerHeight, 700, 200);
+    GameProperties.canvas.drawImage(GameProperties.spriteBundle,  0, 429, 700 ,120, 211, 110, 700, 200);
 
     gameStartMenu.appendChild(gameStartmenuPlayerName);
     gameStartmenuPlayerName.appendChild(gameOverPayerAlias);
