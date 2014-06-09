@@ -5,6 +5,7 @@
 /**
  *
  * @constructor
+ * ritar ut slutmenyn
  */
 this.DOMClassEndMenu =  function(){
     GameProperties.GameOverBool = true;

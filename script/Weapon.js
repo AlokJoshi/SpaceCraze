@@ -71,7 +71,9 @@ function renderBlasts() {
 
     }
 }
-
+/**
+ * hämtar bild för skotten
+ */
 function drawBlastSprite() {
 
     WeaponProperties.BlastSprite = new Image()

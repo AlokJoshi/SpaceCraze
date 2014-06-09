@@ -4,6 +4,7 @@
 /**
  *
  * @constructor
+ * ritar ut startmenyn
  */
 this.DOMClassStartMenu =  function(){
     /**
@@ -164,6 +165,7 @@ this.DOMClassStartMenu =  function(){
                 GameProperties.pressedKeys[e.keyCode] = true;
             }
         }
+
         if (e.keyCode===83 && GameProperties.shipcount >3 && !GameProperties.rendering) {
 
 

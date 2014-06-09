@@ -42,10 +42,7 @@ function Enemies(){
 
 /**
  * Interval för hur ofta fiender ska skapas
- * Normalt varannan sekund
  */
-
-
 function spawnEnemyControl() {
     var regularEnemyInterval = 2000;
       EnemyProperties.EnemyInterval = setInterval(function(){
@@ -103,7 +100,6 @@ function RareEnemy() {
  *
  */
 function RarestEnemy() {
-
     this.speed = 1.4;
     this.x = Math.random()*window.innerWidth;
     this.y = 40;
@@ -124,18 +120,25 @@ function spawnEnemy(amount) {
 
     }
 }
+/**
+ *
+ * @param amount
+ * en annan fiende
+ */
 function spawnRareEnemy(amount) {
     for(var i=0;i<amount;i++) {
-
         EnemyProperties.Enemies[EnemyProperties.Enemies.length] = new RareEnemy();
-
     }
 }
+/**
+ *
+ * @param amount
+ * ytterliggare en fiende
+ */
 function spawnRarestEnemy(amount) {
     for(var i=0;i<amount;i++) {
 
         EnemyProperties.Enemies[EnemyProperties.Enemies.length] = new RarestEnemy();
-
     }
 }
 /**
@@ -152,42 +155,17 @@ RegularEnemy.prototype.render = function(Enemy) {
 
             EnemyProperties.canvas.drawImage(GameProperties.enemySprite1, 0, 0, 700, 700,EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed ,
                 EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
-
-                                                                       //när jag böt från this. till Enemies i arrayen försvann speedcontrol
-           /* EnemyProperties.canvas.fillRect(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed ,
-                EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);*/
-
-
-
-        /**
+      /**
          * fienden spawnar högst upp i rutan om den når botten
          */
         if(EnemyProperties.Enemies[i].y > window.innerHeight) {
 
             if(EnemyProperties.Enemies[i] = RegularEnemy ) {
-
                 spawnEnemy(2);
-               /* EnemyProperties.Enemies[i] = new RegularEnemy(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += EnemyProperties.Enemies[i].speed,
-                    EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);*/
             }
-
-            /*if(GameProperties.life>=0){
-                GameProperties.life-=1;
-                CallGameOver = true;
-            }
-            console.log(GameProperties.life);
-*/
         }
-
-       /* if(EnemyProperties.Enemies[i].x >= EnemyProperties.Enemies[i].x -30 || EnemyProperties.Enemies[i].x <= EnemyProperties.Enemies[i].x +30) {
-
-            EnemyProperties.Enemies[i] = new RegularEnemy(EnemyProperties.Enemies[i].x, EnemyProperties.Enemies[i].y += this.speed,
-                EnemyProperties.Enemies[i].width, EnemyProperties.Enemies[i].height);
-        }*/
     }
 }
-
-
 /**
  *
  * @constructor
